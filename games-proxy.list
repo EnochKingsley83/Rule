@@ -8,3 +8,4 @@ DOMAIN-SUFFIX,steamcontent.com
 DOMAIN-SUFFIX,steamstatic.com
 # > google
 DOMAIN-KEYWORD,google
+DOMAIN-KEYWORD,www.google.
