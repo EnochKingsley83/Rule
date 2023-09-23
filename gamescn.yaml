@@ -1,5 +1,4 @@
 payload:
-  # > Steam
   - DOMAIN,cm.steampowered.com
   - DOMAIN,ol.epicgames.com
   - DOMAIN-SUFFIX,steamcontent.com
@@ -22,5 +21,4 @@ payload:
   - DOMAIN,steamstore-a.akamaihd.net
   - DOMAIN,steamusercontent-a.akamaihd.net
   - DOMAIN,steamuserimages-a.akamaihd.net
-  # > Epic
   - DOMAIN-KEYWORD,epicgames
