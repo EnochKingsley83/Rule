@@ -1,4 +1,4 @@
-  payload:
+payload:
   # > Steam
   - DOMAIN,cm.steampowered.com
   - DOMAIN,ol.epicgames.com
