@@ -1,3 +1,2 @@
-payload:
-- DOMAIN-SUFFIX,cloud.cupronickel.goog
-- DOMAIN-SUFFIX,googleapis.com
+DOMAIN-SUFFIX,cloud.cupronickel.goog
+DOMAIN-SUFFIX,googleapis.com
