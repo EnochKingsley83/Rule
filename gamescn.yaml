@@ -22,3 +22,5 @@ payload:
   - DOMAIN,steamusercontent-a.akamaihd.net
   - DOMAIN,steamuserimages-a.akamaihd.net
   - DOMAIN-KEYWORD,epicgames
+  - DOMAIN-KEYWORD,ubisoft
+  - DOMAIN-KEYWORD,uplay
