@@ -2,7 +2,7 @@ DOMAIN-SUFFIX,api.steampowered.com
 DOMAIN-SUFFIX,cm.steampowered.com
 DOMAIN-SUFFIX,steamserver.net
 GEOSITE,category-games@cn
-GEOSITE,steam@cn,DIRECT
+GEOSITE,steam@cn
 IP-CIDR,103.10.124.0/24,no-resolve
 IP-CIDR,103.10.125.0/24,no-resolve
 IP-CIDR,103.28.54.0/24,no-resolve
