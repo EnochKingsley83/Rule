@@ -1,7 +1,7 @@
 DOMAIN-SUFFIX,api.steampowered.com
 DOMAIN-SUFFIX,cm.steampowered.com
 DOMAIN-SUFFIX,steamserver.net
-GEOSITE,category-games@cn,
+GEOSITE,category-games@cn
 DOMAIN-KEYWORD,steam
 DOMAIN-KEYWORD,epicgames
 DOMAIN-KEYWORD,ubisoft
