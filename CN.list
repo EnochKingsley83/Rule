@@ -48,6 +48,7 @@ DOMAIN-SUFFIX,steamusercontent-a.akamaihd.net
 DOMAIN-SUFFIX,steamuserimages-a.akamaihd.net
 DOMAIN-SUFFIX,steamvideo-a.akamaihd.net
 DOMAIN-SUFFIX,steamchina.com
+DOMAIN-KEYWORD,steam
 DOMAIN-KEYWORD,epicgames
 DOMAIN-KEYWORD,ubisoft
 DOMAIN-KEYWORD,uplay
