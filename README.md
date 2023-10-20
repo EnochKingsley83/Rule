@@ -1,1 +1,1 @@
-# clash ini for Myself only
+# Clash ini for myself only
