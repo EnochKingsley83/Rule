@@ -1,1 +1,1 @@
-# MYself Only
+# Mself only
