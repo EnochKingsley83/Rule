@@ -1,1 +1,1 @@
-# Rule MYself Only
+# MYself Only
