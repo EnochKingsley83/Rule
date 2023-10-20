@@ -1,1 +1,1 @@
-# Mself only
+# clash ini for Myself only
