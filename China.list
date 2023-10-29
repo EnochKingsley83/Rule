@@ -1,4 +1,4 @@
-DOMAIN-SUFFIX,cm.steampowered.com 
+DOMAIN-SUFFIX,cm.steampowered.com
 DOMAIN-SUFFIX,steamchina.com
 DOMAIN-SUFFIX,steamcontent.com
 DOMAIN-SUFFIX,steamserver.net
@@ -11,3 +11,7 @@ DOMAIN-SUFFIX,cdn.mileweb.cs.steampowered.com.8686c.com
 DOMAIN-SUFFIX,xz.pphimalayanrt.com
 DOMAIN-SUFFIX,lv.queniujq.cn
 DOMAIN-SUFFIX,alibaba.cdn.steampipe.steamcontent.com
+DOMAIN-SUFFIX,cdn-ws.content.steamchina.com
+DOMAIN-SUFFIX,cdn-qc.content.steamchina.com
+DOMAIN-SUFFIX,cdn-ali.content.steamchina.com
+DOMAIN-SUFFIX,epicgames-download1-1251447533.file.myqcloud.com
