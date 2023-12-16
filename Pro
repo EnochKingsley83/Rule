@@ -1,3 +1,4 @@
+GEOIP,CN,DIRECT,no-resolve
 DOMAIN-SUFFIX,000webhost.com,no-resolve
 DOMAIN-SUFFIX,030buy.com,no-resolve
 DOMAIN-SUFFIX,0rz.tw,no-resolve
