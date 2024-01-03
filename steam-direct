@@ -93,6 +93,10 @@ payload:
   - DOMAIN-SUFFIX,steamstatic.com.8686c.com
   - DOMAIN-SUFFIX,xz.pphimalayanrt.com
   - DOMAIN-SUFFIX,steamchina.com
+  - DOMAIN-KEYWORD,steam
+  - DOMAIN-KEYWORD,steambroadcast
+  - DOMAIN-KEYWORD,steamstore
+  - DOMAIN-KEYWORD,steamuserimages
   - IP-CIDR,103.10.124.0/24
   - IP-CIDR,103.10.125.0/24
   - IP-CIDR,103.28.54.0/24
