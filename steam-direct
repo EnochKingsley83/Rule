@@ -66,6 +66,8 @@ payload:
   - DOMAIN-SUFFIX,underlords.com
   - DOMAIN-SUFFIX,valvesoftware.com
   - DOMAIN-SUFFIX,wmsjsteam.com
+  - DOMAIN-SUFFIX,lv.queniujq.cn
+  - DOMAIN-SUFFIX,alibaba.cdn.steampipe.steamcontent.com
   - DOMAIN-KEYWORD,steam
   - DOMAIN-KEYWORD,steambroadcast
   - DOMAIN-KEYWORD,steamstore
