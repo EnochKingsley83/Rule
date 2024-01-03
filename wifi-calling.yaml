@@ -1,0 +1,17 @@
+payload:
+  - DOMAIN-SUFFIX,epdg.epc.att.net
+  - DOMAIN-SUFFIX,sentitlement2.mobile.att.net
+  - DOMAIN-SUFFIX,vvm.mobile.att.net
+  - DOMAIN-SUFFIX,mmsc.mobile.att.net
+  - DOMAIN-SUFFIX,wo.vzwwo.com
+  - DOMAIN-SUFFIX,sg.vzwfemto.com
+  - DOMAIN-SUFFIX,crl.t-mobile.com
+  - DOMAIN-SUFFIX,eas3.msg.t-mobile.com
+  - DOMAIN-SUFFIX,mascns.t-mobile.com
+  - DOMAIN-SUFFIX,ns.sipgeo.t-mobile.com
+  - DOMAIN-SUFFIX,epdg.epc.mnc240.mcc310.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,epdg.epc.mnc260.mcc310.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,ss.epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org
+  - DST-PORT,4500
+  - DST-PORT,500
