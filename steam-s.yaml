@@ -18,6 +18,7 @@ payload:
   - DOMAIN-SUFFIX,lv.queniujq.cn
   - DOMAIN-SUFFIX,alibaba.cdn.steampipe.steamcontent.com
   - DOMAIN-SUFFIX,steamchina.com
+  - DOMAIN-SUFFIX,steamserver.net
   - DOMAIN-SUFFIX,steamcontent.com
   - DOMAIN-SUFFIX,steamusercontent.com
 
