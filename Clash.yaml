@@ -31,14 +31,9 @@ proxy-groups:
   - name: PROXY
     type: select
     proxies:
-      - 🇺🇸 US-reality
       - 🇺🇸 US-trojan
       
-  - name: Spotify
-    type: select
-    proxies:
-      - 🇮🇳 India
-      - PROXY
+
      
 rules:
   - RULE-SET,wifi-calling,PROXY 
@@ -47,8 +42,6 @@ rules:
   - DOMAIN-SUFFIX,steamcommunity.com,PROXY
   - RULE-SET,steam,DIRECT
   - RULE-SET,steamcn,DIRECT  
-
-  - RULE-SET,spotify,Spotify
 
   - RULE-SET,xbox,DIRECT
   - RULE-SET,origin,DIRECT
