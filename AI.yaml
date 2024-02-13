@@ -30,6 +30,7 @@ payload:
   - IP-CIDR,24.199.123.28/32
   - IP-CIDR,64.23.132.171/32
 
+# NAME: Gemini
   - DOMAIN,ai.google.dev
   - DOMAIN,alkalimakersuite-pa.clients6.google.com
   - DOMAIN,generativelanguage.googleapis.com
