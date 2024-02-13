@@ -40,3 +40,7 @@ payload:
   - DOMAIN-SUFFIX,deepmind.com
   - DOMAIN-SUFFIX,deepmind.google
   - DOMAIN-SUFFIX,generativeai.google
+  - DOMAIN-KEYWORD,generativelanguage
+  - DOMAIN-KEYWORD,colab
+  - DOMAIN-SUFFIX,apis.google.com
+  - DOMAIN-KEYWORD,developerprofiles
