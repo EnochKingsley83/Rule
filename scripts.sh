@@ -90,13 +90,18 @@ case $choice in
         echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
         echo "net.ipv6.conf.default.disable_ipv6=1" >> /etc/sysctl.conf
         echo "net.ipv6.conf.lo.disable_ipv6=1" >> /etc/sysctl.conf
-        sudo touch /etc/rc.local
-        echo "#!/bin/bash" | sudo tee /etc/rc.local > /dev/null
-        echo "# /etc/rc.local" | sudo tee -a /etc/rc.local > /dev/null
-        echo "/etc/sysctl.d" | sudo tee -a /etc/rc.local > /dev/null
-        echo "/etc/init.d/procps restart" | sudo tee -a /etc/rc.local > /dev/null
-        echo "exit 0" | sudo tee -a /etc/rc.local > /dev/null
-        sudo chmod 777 /etc/rc.local
+
+        sudo touch /etc/systemd/system/sysctl-p.service
+        echo "[Unit]" >> /etc/systemd/system/sysctl-p.service
+        echo "Description=Apply sysctl settings at boot" >> /etc/systemd/system/sysctl-p.service
+        echo "[Service]" >> /etc/systemd/system/sysctl-p.service
+        echo "Type=oneshot" >> /etc/systemd/system/sysctl-p.service
+        echo "[Install]" >> /etc/systemd/system/sysctl-p.service
+        echo "WantedBy=multi-user.target" >> /etc/systemd/system/sysctl-p.service
+        sudo chmod 777 /etc/systemd/system/sysctl-p.service
+        sudo systemctl daemon-reload
+        sudo systemctl enable sysctl-p.service
+        sudo systemctl start sysctl-p.service
         ;;
     0)
         # 返回
