@@ -36,9 +36,11 @@ case $choice in
         systemctl enable docker
         curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
         chmod +x /usr/local/bin/docker-compose
-		echo "Docker版本"
+	
+	echo "Docker版本"
         docker -v
-		echo "Docker-compose版本"
+	
+	echo "Docker-compose版本"
         docker-compose --version
         ;;
     3)
