@@ -92,14 +92,16 @@ case $choice in
         echo "net.ipv6.conf.lo.disable_ipv6=1" >> /etc/sysctl.conf
 
         sudo touch /etc/systemd/system/sysctl-p.service
+
         echo "[Unit]" >> /etc/systemd/system/sysctl-p.service
         echo "Description=Apply sysctl settings at boot" >> /etc/systemd/system/sysctl-p.service
+        echo "DefaultDependencies=no" >> /etc/systemd/system/sysctl-p.service
+        echo "Before=local-fs.target" >> /etc/systemd/system/sysctl-p.service
         echo "[Service]" >> /etc/systemd/system/sysctl-p.service
         echo "Type=oneshot" >> /etc/systemd/system/sysctl-p.service
         echo "ExecStart=/sbin/sysctl -p" >> /etc/systemd/system/sysctl-p.service
         echo "[Install]" >> /etc/systemd/system/sysctl-p.service
-        echo "WantedBy=multi-user.target" >> /etc/systemd/system/sysctl-p.service
-        sudo chmod 777 /etc/systemd/system/sysctl-p.service
+        echo "WantedBy=sysinit.target" >> /etc/systemd/system/sysctl-p.service
         sudo systemctl daemon-reload
         sudo systemctl enable sysctl-p.service
         sudo systemctl start sysctl-p.service
