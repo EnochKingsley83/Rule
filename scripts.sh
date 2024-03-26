@@ -96,6 +96,7 @@ case $choice in
         echo "Description=Apply sysctl settings at boot" >> /etc/systemd/system/sysctl-p.service
         echo "[Service]" >> /etc/systemd/system/sysctl-p.service
         echo "Type=oneshot" >> /etc/systemd/system/sysctl-p.service
+        echo "ExecStart=/sbin/sysctl -p" >> /etc/systemd/system/sysctl-p.service
         echo "[Install]" >> /etc/systemd/system/sysctl-p.service
         echo "WantedBy=multi-user.target" >> /etc/systemd/system/sysctl-p.service
         sudo chmod 777 /etc/systemd/system/sysctl-p.service
