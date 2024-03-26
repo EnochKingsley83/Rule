@@ -27,7 +27,12 @@ case $choice in
         # 安装必要依赖
         echo "安装必要依赖..."
         sudo apt update -y
-        sudo apt install sudo vim vnstat curl unzip net-tools socat -y
+        apt install sudo vim -y
+		apt install vnstat -y
+		apt install curl -y
+		apt install unzip -y
+		apt install net-tools -y
+		apt install socat -y
         ;;
     2)
         # 安装Docker
@@ -40,6 +45,7 @@ case $choice in
         docker -v
 		echo "Docker-compose版本"
         docker-compose --version
+		echo -e "\n"
         ;;
     3)
         # 添加Swap
