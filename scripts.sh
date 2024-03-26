@@ -98,7 +98,7 @@ case $choice in
         echo "DefaultDependencies=no" >> /etc/systemd/system/sysctl-p.service
         echo "Before=local-fs.target" >> /etc/systemd/system/sysctl-p.service
         echo "[Service]" >> /etc/systemd/system/sysctl-p.service
-        echo "Type=simple" >> /etc/systemd/system/sysctl-p.service
+        echo "Type=oneshot" >> /etc/systemd/system/sysctl-p.service
         echo "ExecStart=/sbin/sysctl -p" >> /etc/systemd/system/sysctl-p.service
         echo "[Install]" >> /etc/systemd/system/sysctl-p.service
         echo "WantedBy=sysinit.target" >> /etc/systemd/system/sysctl-p.service
