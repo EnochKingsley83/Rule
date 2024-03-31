@@ -141,7 +141,6 @@ case $choice in
         sed -i 's/ACL4SSR_Online 默认版 分组比较全 (与Github同步)/Openclash.ini/g' /root/sub-web/src/views/Subconverter.vue
         sed -i 's#https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini#https://raw.githubusercontent.com/EnochKingsley83/Rule/main/openclash.ini#g' /root/sub-web/src/views/Subconverter.vue
         echo "替换完成"
-        yarn build
         URL=https://www.aapanel.com/script/install_6.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_6.0_en.sh "$URL";fi;bash install_6.0_en.sh aapanel
         sudo apt-get purge ufw
         sudo rm -rf /etc/ufw
