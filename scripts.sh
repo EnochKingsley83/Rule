@@ -130,6 +130,7 @@ case $choice in
         git clone https://github.com/CareyWang/sub-web.git
         cd sub-web
         yarn install
+        yarn build
         cd /root
         wget https://github.com/MetaCubeX/subconverter/releases/download/Alpha/subconverter_linux64.tar.gz
         tar -zxvf subconverter_linux64.tar.gz
