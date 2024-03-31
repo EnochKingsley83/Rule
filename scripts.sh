@@ -63,8 +63,8 @@ case $choice in
         curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh  -o nezha.sh && chmod +x nezha.sh && sudo ./nezha.sh
         ;;
     6)
-        # 3x-ui面板
-        echo "3x-ui面板..."
+        # x-ui面板
+        echo "x-ui面板..."
         bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
         ;;
     7)
