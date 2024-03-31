@@ -130,6 +130,10 @@ case $choice in
         git clone https://github.com/CareyWang/sub-web.git
         cd sub-web
         yarn install
+        cd /root
+        wget https://github.com/MetaCubeX/subconverter/releases/download/Alpha/subconverter_linux64.tar.gz
+        tar -zxvf subconverter_linux64.tar.gz
+        rm -rf /root/subconverter_linux64.tar.gz
         read -p "请输入前端域名（不带https和www）: " domain
         replace_str="https://$domain/sub?"
         sed -i "s#http://127.0.0.1:25500/sub?#$replace_str#g" /root/sub-web/src/views/Subconverter.vue
@@ -151,10 +155,6 @@ case $choice in
                 directory="/www/wwwroot/$domain"
                 rm -rf "$directory"
                 cp -r /root/sub-web/dist/* /www/wwwroot/$domain
-                cd /root
-                wget https://github.com/MetaCubeX/subconverter/releases/download/Alpha/subconverter_linux64.tar.gz
-                tar -zxvf subconverter_linux64.tar.gz
-                rm -rf /root/subconverter_linux64.tar.gz
                 echo "恭喜，前端搭建完成"
                 break
             else
@@ -166,9 +166,9 @@ case $choice in
         wget https://github.com/MetaCubeX/subconverter/releases/download/Alpha/subconverter_linux64.tar.gz
         tar -zxvf subconverter_linux64.tar.gz
         rm -rf /root/subconverter_linux64.tar.gz
-        sed -i "s/api_access_token=password/api_access_token=SRG8EH43u8rT8UT01GVD6RT/g" /root/subconverter/pref.example.ini
-        sed -i "s/listen=0.0.0.0/listen=127.0.0.1/g" /root/subconverter/pref.example.ini
-        sed -i "s#managed_config_prefix=http://127.0.0.1:25500#managed_config_prefix=https://$domain#g" /root/subconverter/pref.example.ini
+        sudo sed -i "s/api_access_token=password/api_access_token=SRG8EH43u8rT8UT01GVD6RT/g" /root/subconverter/pref.example.ini
+        sudo sed -i "s/listen=0.0.0.0/listen=127.0.0.1/g" /root/subconverter/pref.example.ini
+        sudo sed -i "s#managed_config_prefix=http://127.0.0.1:25500#managed_config_prefix=https://$domain#g" /root/subconverter/pref.example.ini
  
         sudo touch /etc/systemd/system/sub.service
 
