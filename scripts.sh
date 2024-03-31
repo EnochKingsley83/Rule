@@ -163,9 +163,6 @@ case $choice in
         done
         echo "后端搭建中..."
         cd /root
-        wget https://github.com/MetaCubeX/subconverter/releases/download/Alpha/subconverter_linux64.tar.gz
-        tar -zxvf subconverter_linux64.tar.gz
-        rm -rf /root/subconverter_linux64.tar.gz
         sudo sed -i "s/api_access_token=password/api_access_token=SRG8EH43u8rT8UT01GVD6RT/g" /root/subconverter/pref.example.ini
         sudo sed -i "s/listen=0.0.0.0/listen=127.0.0.1/g" /root/subconverter/pref.example.ini
         sudo sed -i "s#managed_config_prefix=http://127.0.0.1:25500#managed_config_prefix=https://$domain#g" /root/subconverter/pref.example.ini
