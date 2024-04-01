@@ -12,7 +12,6 @@ echo "7. 流媒体检测"
 echo "8. Hysteria2一键脚本"
 echo "9. 内网穿透frp安装"
 echo "10. 关闭ipv6"
-echo "11. 一键安装订阅转换前后端(会自动安装aapanel)"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -107,87 +106,6 @@ case $choice in
         sudo systemctl enable sysctl-p.service
         sudo systemctl start sysctl-p.service
         ;;
-    11)
-        # 一键安装订阅转换前后端
-        echo "安装订阅转换前后端中..."
-        echo "安装node 16和yarn1.22.19..."
-        npm install -g cnpm --registry=https://registry.npmmirror.com
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-        export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-        nvm install 16
-        nvm use 16
-        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-        echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-        sudo apt-get update
-        sudo apt-get install -y yarn
-        echo "node版本为"
-        node -v
-        echo "yarn版本为"
-        yarn --version
-
-        #下载并安装 Sub-Web
-        git clone https://github.com/CareyWang/sub-web.git
-        cd sub-web
-        yarn install
-        yarn build
-        cd /root
-        wget https://github.com/MetaCubeX/subconverter/releases/download/Alpha/subconverter_linux64.tar.gz
-        tar -zxvf subconverter_linux64.tar.gz
-        rm -rf /root/subconverter_linux64.tar.gz
-        read -p "请输入前端域名（不带https和www）: " domain
-        replace_str="https://$domain/sub?"
-        sed -i "s#http://127.0.0.1:25500/sub?#$replace_str#g" /root/sub-web/src/views/Subconverter.vue
-        sed -i 's/label: "No-Urltest",/Openclash.ini/g' /root/sub-web/src/views/Subconverter.vue
-        sed -i 's#https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini#https://raw.githubusercontent.com/EnochKingsley83/Rule/main/openclash.ini#g' /root/sub-web/src/views/Subconverter.vue
-        echo "替换完成"
-        URL=https://www.aapanel.com/script/install_6.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_6.0_en.sh "$URL";fi;bash install_6.0_en.sh aapanel
-        sudo apt-get purge ufw
-        sudo rm -rf /etc/ufw
-        sudo rm -rf /lib/ufw
-        echo "前端搭建完成，并自动安装了aapanel（宝塔面板）"
-        echo "aapanel登录信息如下，请手动在aapanel反向代理里面添加sub和suc的子域名，并申请SSL证书，在suc的反向代理里面添加http://127.0.0.1:25500"
-        bt
-        echo
-        echo "请手动在aapanel面板安装nginx后添加前后端域名并申请SSL证书，然后给后端配置http://127.0.0.1:25500的反向代理"  
-        while true; do
-            read -p "是否手动完成上述内，是输入y" choice
-            if [ "$choice" = "Y" ] || [ "$choice" = "y" ]; then
-                directory="/www/wwwroot/$domain"
-                rm -rf "$directory"
-                cp -r /root/sub-web/dist/* /www/wwwroot/$domain
-                echo "恭喜，前端搭建完成"
-                break
-            else
-                echo "输入不正确，请输入 Y 继续执行操作"
-            fi
-        done
-        echo "后端搭建中..."
-        cd /root
-        sudo sed -i "s/api_access_token=password/api_access_token=SRG8EH43u8rT8UT01GVD6RT/g" /root/subconverter/pref.example.ini
-        sudo sed -i "s/listen=0.0.0.0/listen=127.0.0.1/g" /root/subconverter/pref.example.ini
-        sudo sed -i "s#managed_config_prefix=http://127.0.0.1:25500#managed_config_prefix=https://$domain#g" /root/subconverter/pref.example.ini
- 
-        sudo touch /etc/systemd/system/sub.service
-
-        echo "[Unit]" >> /etc/systemd/system/sub.service
-        echo "Description=Apply sysctl settings at boot" >> /etc/systemd/system/sub.service
-        echo "After=network.target" >> /etc/systemd/system/sub.service
-
-        echo "[Service]" >> /etc/systemd/system/sub.service
-        echo "Type=simple" >> /etc/systemd/system/sub.service
-        echo "ExecStart=/root/subconverter/subconverter" >> /etc/systemd/system/sub.service
-        echo "Restart=always" >> /etc/systemd/system/sub.service
-        echo "RestartSec=10" >> /etc/systemd/system/sub.service
-
-        echo "[Install]" >> /etc/systemd/system/sub.service
-        echo "WantedBy=multi-user.target" >> /etc/systemd/system/sub.service
-        sudo systemctl daemon-reload
-        sudo systemctl enable sub.service
-        sudo systemctl start sub.service
-        echo "后端搭建完成"
-        ;;
-
 
     0)
         # 返回
