@@ -138,8 +138,8 @@ case $choice in
         read -p "请输入前端域名（不带https和www）: " domain
         replace_str="https://$domain/sub?"
         sed -i "s#http://127.0.0.1:25500/sub?#$replace_str#g" /root/sub-web/src/views/Subconverter.vue
-        sed -i 's/ACL4SSR_Online 默认版 分组比较全 (与Github同步)/Openclash.ini/g' /root/sub-web/src/views/Subconverter.vue
-        sed -i 's#https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini#https://raw.githubusercontent.com/EnochKingsley83/Rule/main/openclash.ini#g' /root/sub-web/src/views/Subconverter.vue
+        sed -i 's/label: "No-Urltest",/Openclash.ini/g' /root/sub-web/src/views/Subconverter.vue
+        sed -i 's#https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini#https://raw.githubusercontent.com/EnochKingsley83/Rule/main/openclash.ini#g' /root/sub-web/src/views/Subconverter.vue
         echo "替换完成"
         URL=https://www.aapanel.com/script/install_6.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_6.0_en.sh "$URL";fi;bash install_6.0_en.sh aapanel
         sudo apt-get purge ufw
@@ -148,7 +148,8 @@ case $choice in
         echo "前端搭建完成，并自动安装了aapanel（宝塔面板）"
         echo "aapanel登录信息如下，请手动在aapanel反向代理里面添加sub和suc的子域名，并申请SSL证书，在suc的反向代理里面添加http://127.0.0.1:25500"
         bt
-        echo 
+        echo
+        echo "请手动在aapanel面板安装nginx后添加前后端域名并申请SSL证书，然后给后端配置http://127.0.0.1:25500的反向代理"  
         while true; do
             read -p "是否手动完成上述内，是输入y" choice
             if [ "$choice" = "Y" ] || [ "$choice" = "y" ]; then
@@ -182,8 +183,8 @@ case $choice in
         echo "[Install]" >> /etc/systemd/system/sub.service
         echo "WantedBy=multi-user.target" >> /etc/systemd/system/sub.service
         sudo systemctl daemon-reload
-        sudo systemctl enable sysctl-p.service
-        sudo systemctl start sysctl-p.service
+        sudo systemctl enable sub.service
+        sudo systemctl start sub.service
         echo "后端搭建完成"
         ;;
 
