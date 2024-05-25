@@ -33,6 +33,7 @@ case $choice in
 	apt install unzip -y
 	apt install net-tools -y
 	apt install socat -y
+        apt install cron -y
         ;;
     2)
         # 安装Docker
