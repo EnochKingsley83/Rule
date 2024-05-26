@@ -12,6 +12,7 @@ echo "7. 流媒体检测"
 echo "8. Hysteria2一键脚本"
 echo "9. 内网穿透frp安装"
 echo "10. 关闭ipv6"
+echo "11. 三网测速"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -106,6 +107,11 @@ case $choice in
         sudo systemctl daemon-reload
         sudo systemctl enable sysctl-p.service
         sudo systemctl start sysctl-p.service
+        ;;
+    11)
+        # 三网测速
+        echo "frp安装中..."
+        bash <(curl -Lso- https://bench.im/hyperspeed)
         ;;
 
     0)
