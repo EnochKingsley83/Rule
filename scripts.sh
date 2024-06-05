@@ -66,8 +66,8 @@ case $choice in
         ;;
     6)
         # x-ui面板
-        echo "x-ui面板..."
-        bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
+        echo "3x-ui面板..."
+        bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
         ;;
     7)
         # 流媒体检测
