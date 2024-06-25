@@ -7,7 +7,7 @@ echo "2. 安装Docker"
 echo "3. 添加Swap"
 echo "4. 其他拥塞控制算法"
 echo "5. 哪吒面板"
-echo "6. 3x-ui面板"
+echo "6. x-ui面板"
 echo "7. 流媒体检测"
 echo "8. Hysteria2一键脚本"
 echo "9. 内网穿透frp安装"
@@ -66,8 +66,8 @@ case $choice in
         ;;
     6)
         # x-ui面板
-        echo "3x-ui面板..."
-        bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+        echo "x-ui面板..."
+        bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
         ;;
     7)
         # 流媒体检测
