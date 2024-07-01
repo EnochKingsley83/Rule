@@ -4,7 +4,7 @@
 echo "请选择要执行的操作："
 echo "1. 开启BBR并安装必要依赖"
 echo "2. 安装Docker"
-echo "3. 添加Swap"
+echo "3. 安装宝塔面板"
 echo "4. 其他拥塞控制算法"
 echo "5. 哪吒面板"
 echo "6. x-ui面板"
@@ -50,9 +50,9 @@ case $choice in
 	echo -e "\n"
         ;;
     3)
-        # 添加Swap
-        echo "添加Swap..."
-        bash <(wget --no-check-certificate -qO- https://cdn.jsdelivr.net/gh/Moexin/Shell@master/Swap.sh)
+        # 安装宝塔面板
+        echo "安装宝塔面板..."
+        URL=https://www.aapanel.com/script/install_7.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_7.0_en.sh "$URL";fi;bash install_7.0_en.sh aapanel
         ;;
     4)
         # 查看可用的拥塞控制算法
