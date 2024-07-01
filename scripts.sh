@@ -9,7 +9,7 @@ echo "4. 其他拥塞控制算法"
 echo "5. 哪吒面板"
 echo "6. x-ui面板"
 echo "7. 流媒体检测"
-echo "8. Hysteria2一键脚本"
+echo "8. Swap"
 echo "9. 内网穿透frp安装"
 echo "10. 关闭ipv6"
 echo "11. 三网测速"
@@ -75,9 +75,9 @@ case $choice in
         bash <(curl -L -s media.ispvps.com) -M 4
         ;;
     8)
-        # Hysteria2
-        echo "Hysteria2安装中..."
-        wget -N --no-check-certificate https://raw.githubusercontent.com/flame1ce/hysteria2-install/main/hysteria2-install-main/hy2/hysteria.sh && bash hysteria.sh
+        # Swap
+        echo "Swap安装中..."
+        wget https://raw.githubusercontent.com/zhucaidan/swap.sh/main/swap.sh && bash swap.sh
         ;;
     9)
         # frp安装
