@@ -65,7 +65,7 @@ case $choice in
     5)
         # 哪吒面板
         echo "哪吒面板安装中..."
-        wget -O install.sh https://raw.gitmirror.com/naiba/nezha/master/script/install.sh && bash install.sh
+        curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && sudo ./nezha.sh
         ;;
     6)
         # x-ui面板
