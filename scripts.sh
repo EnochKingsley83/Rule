@@ -13,6 +13,7 @@ echo "8. Swap"
 echo "9. 内网穿透frp安装"
 echo "10. 关闭ipv6"
 echo "11. 三网测速"
+echo "12. 安装warp到40000端口"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -53,7 +54,9 @@ case $choice in
         # 安装宝塔面板
         echo "安装宝塔面板..."
         URL=https://www.aapanel.com/script/install_7.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_7.0_en.sh "$URL";fi;bash install_7.0_en.sh aapanel
-        ;;
+        apt remove ufw -y
+	apt autoremove ufw -y
+	;;
     4)
         # 查看可用的拥塞控制算法
         echo "可用的拥塞控制算法："
@@ -113,7 +116,17 @@ case $choice in
         echo "frp安装中..."
         bash <(curl -Lso- https://bench.im/hyperspeed)
         ;;
-
+    12)
+        # 安装warp到40000端口
+        echo "安装warp到40000端口..."
+        curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+        apt update
+        apt install cloudflare-warp
+        warp-cli register
+	warp-cli set-mode proxy
+        curl ifconfig.me --proxy socks5://127.0.0.1:40000
+        ;;
     0)
         # 返回
         echo "退出脚本..."
