@@ -162,21 +162,15 @@ case $choice in
     14)
         # 安装并连接Cloudflare WARP
         echo "安装并连接Cloudflare WARP..."
-        # 安装WARP仓库GPG 密钥
+        sudo apt update
+        sudo apt install gnupg -y
         curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-        # 添加WARP源
         echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-        # 更新APT缓存
         apt update
-        # 安装WARP
         apt install cloudflare-warp -y
-        # 注册WARP
         warp-cli register
-        # 设置为代理模式
         warp-cli set-mode proxy
-        # 连接WARP
         warp-cli connect
-        # 查询代理后的IP地址
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
         ;;
     0)
