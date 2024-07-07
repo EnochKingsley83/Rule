@@ -172,6 +172,7 @@ case $choice in
         warp-cli set-mode proxy
         warp-cli connect
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
+        sudo systemctl restart warp-svc
         ;;
     0)
         # 返回
