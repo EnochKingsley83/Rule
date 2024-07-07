@@ -14,6 +14,7 @@ echo "9. 内网穿透frp安装"
 echo "10. 关闭ipv6"
 echo "11. 三网测速"
 echo "12. 修改命令提示符"
+echo "13. 修改SSH配置并更改密码"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -139,6 +140,20 @@ case $choice in
         source /root/.bashrc
 
         echo "命令提示符已更改为 root@$newname"
+        ;;
+    13)
+        # 修改SSH配置并更改密码
+        echo "修改SSH配置文件..."
+        sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+        sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+        sed -i 's/^#PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+        sed -i 's/^PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+        sed -i 's/^#KbdInteractiveAuthentication.*/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
+        sed -i 's/^KbdInteractiveAuthentication.*/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
+        systemctl restart sshd
+        echo "请设置新的SSH密码："
+        passwd
+        systemctl restart sshd
         ;;
     0)
         # 返回
