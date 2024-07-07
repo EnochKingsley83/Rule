@@ -13,7 +13,7 @@ echo "8. Swap"
 echo "9. 内网穿透frp安装"
 echo "10. 关闭ipv6"
 echo "11. 三网测速"
-echo "12. 安装warp到40000端口"
+echo "12. 修改命令提示符"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -30,11 +30,11 @@ case $choice in
         echo "安装必要依赖..."
         apt update -y
         apt install sudo vim -y
-	apt install vnstat -y
-	apt install curl -y
-	apt install unzip -y
-	apt install net-tools -y
-	apt install socat -y
+        apt install vnstat -y
+        apt install curl -y
+        apt install unzip -y
+        apt install net-tools -y
+        apt install socat -y
         apt install cron -y
         ;;
     2)
@@ -44,19 +44,19 @@ case $choice in
         systemctl enable docker
         curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
         chmod +x /usr/local/bin/docker-compose
-	echo "Docker版本"
+        echo "Docker版本"
         docker -v
-	echo "Docker-compose版本"
+        echo "Docker-compose版本"
         docker-compose --version
-	echo -e "\n"
+        echo -e "\n"
         ;;
     3)
         # 安装宝塔面板
         echo "安装宝塔面板..."
         URL=https://www.aapanel.com/script/install_7.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_7.0_en.sh "$URL";fi;bash install_7.0_en.sh aapanel
         apt remove ufw -y
-	apt autoremove ufw -y
-	;;
+        apt autoremove ufw -y
+        ;;
     4)
         # 查看可用的拥塞控制算法
         echo "可用的拥塞控制算法："
@@ -113,20 +113,25 @@ case $choice in
         ;;
     11)
         # 三网测速
-        echo "frp安装中..."
+        echo "三网测速中..."
         bash <(curl -Lso- https://bench.im/hyperspeed)
         ;;
     12)
-        # 安装warp到40000端口
-        echo "安装warp到40000端口..."
-	apt install gnupg -y
-        curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-        apt update
-        apt install cloudflare-warp
-        warp-cli register
-	warp-cli set-mode proxy
-        curl ifconfig.me --proxy socks5://127.0.0.1:40000
+        # 修改命令提示符
+        read -p "请输入你想要的名称：" newname
+        echo "修改命令提示符为 root@$newname..."
+        if ! grep -q "PS1='\\\$debian_chroot" /etc/bash.bashrc; then
+            echo "PS1='${debian_chroot:+(\$debian_chroot)}\u@$newname:\w\$ '" >> /etc/bash.bashrc
+        fi
+
+        if ! grep -q "PS1='\\\$debian_chroot" ~/.bashrc; then
+            echo "PS1='${debian_chroot:+(\$debian_chroot)}\u@$newname:\w\$ '" >> ~/.bashrc
+        fi
+
+        source /etc/bash.bashrc
+        source ~/.bashrc
+
+        echo "命令提示符已更改为 root@$newname"
         ;;
     0)
         # 返回
