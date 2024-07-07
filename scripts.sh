@@ -15,6 +15,7 @@ echo "10. 关闭ipv6"
 echo "11. 三网测速"
 echo "12. 修改命令提示符"
 echo "13. 修改SSH配置并更改密码"
+echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -151,9 +152,30 @@ case $choice in
         sed -i 's/^#KbdInteractiveAuthentication.*/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
         sed -i 's/^KbdInteractiveAuthentication.*/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
         systemctl restart sshd
+        echo "SSH配置已修改。"
+
         echo "请设置新的SSH密码："
         passwd
-        systemctl restart sshd
+        ;;
+    14)
+        # 安装并连接Cloudflare WARP
+        echo "安装并连接Cloudflare WARP..."
+        # 安装WARP仓库GPG 密钥
+        curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+        # 添加WARP源
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+        # 更新APT缓存
+        apt update
+        # 安装WARP
+        apt install cloudflare-warp -y
+        # 注册WARP
+        warp-cli register
+        # 设置为代理模式
+        warp-cli set-mode proxy
+        # 连接WARP
+        warp-cli connect
+        # 查询代理后的IP地址
+        curl ifconfig.me --proxy socks5://127.0.0.1:40000
         ;;
     0)
         # 返回
