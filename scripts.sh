@@ -121,15 +121,15 @@ case $choice in
         read -p "请输入你想要的名称：" newname
         echo "修改命令提示符为 root@$newname..."
         if ! grep -q "PS1='\\\$debian_chroot" /etc/bash.bashrc; then
-            echo "PS1='${debian_chroot:+(\$debian_chroot)}\u@$newname:\w\$ '" >> /etc/bash.bashrc
+            echo "PS1='${debian_chroot:+(\$debian_chroot)}\u@$newname:\w# '" >> /etc/bash.bashrc
         fi
 
-        if ! grep -q "PS1='\\\$debian_chroot" ~/.bashrc; then
-            echo "PS1='${debian_chroot:+(\$debian_chroot)}\u@$newname:\w\$ '" >> ~/.bashrc
+        if ! grep -q "PS1='\\\$debian_chroot" /root/.bashrc; then
+            echo "PS1='${debian_chroot:+(\$debian_chroot)}\u@$newname:\w# '" >> /root/.bashrc
         fi
 
         source /etc/bash.bashrc
-        source ~/.bashrc
+        source /root/.bashrc
 
         echo "命令提示符已更改为 root@$newname"
         ;;
