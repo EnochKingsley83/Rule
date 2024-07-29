@@ -16,6 +16,7 @@ echo "11. 三网测速"
 echo "12. 修改命令提示符"
 echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
+echo "15. 安装traffmonetizer（需要先自行安装docker）"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -173,6 +174,10 @@ case $choice in
         warp-cli connect
         sudo systemctl restart warp-svc
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
+        ;;
+    15)
+        docker pull traffmonetizer/cli_v2:latest
+        docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
     0)
         # 返回
