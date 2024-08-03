@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 切换到存放证书的目录
-certPath="/root/DNScertificate"
+certPath="/root/cert"
 cd "$certPath" || { echo "无法访问目录 $certPath"; exit 1; }
 
 # 打印表头和分隔线
