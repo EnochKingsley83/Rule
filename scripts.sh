@@ -244,9 +244,9 @@ case $choice in
         exit
         ;;
     17)
-    echo "17. 选择操作"
-    echo "1. 查看证书到期时间"
-    echo "2. 强制更新所有证书"
+    echo "选择操作"
+    echo "1.表示查看证书到期时间"
+    echo "2.表示强制更新所有证书"
 
     read -p "请输入您的选择 (1 或 2): " choice
 
