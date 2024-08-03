@@ -184,70 +184,73 @@ case $choice in
         docker pull traffmonetizer/cli_v2:latest
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
-    16)
-        echo "17. 通过DNS-01验证给域名申请ACME证书"
-        echo "并配置在每天晚上12点（系统本身时区）更新所有域名证书"
-        echo "证书目录/root/DNScertificate/"
-        echo "申请ACME证书（DNS-01验证）..."
-        echo "请设置域名:"
-        read -p "输入域名: " CF_Domain
-        echo "请设置Cloudflare的API Token:"
-        read -p "输入API Token: " CF_GlobalKey
-        echo "请设置Cloudflare的注册邮箱:"
-        read -p "输入注册邮箱: " CF_AccountEmail
-        
-        if [ ! -f "/root/.acme.sh/acme.sh" ]; then
+16)
+    echo "17. 通过DNS-01验证给域名申请ACME证书"
+    echo "并配置在每天晚上12点（系统本身时区）更新所有域名证书"
+    echo "证书目录/root/DNScertificate/"
+    echo "申请ACME证书（DNS-01验证）..."
+    echo "请设置域名:"
+    read -p "输入域名: " CF_Domain
+    echo "请设置Cloudflare的API Token:"
+    read -p "输入API Token: " CF_GlobalKey
+    echo "请设置Cloudflare的注册邮箱:"
+    read -p "输入注册邮箱: " CF_AccountEmail
+
+    if [ ! -f "/root/.acme.sh/acme.sh" ]; then
         echo "acme.sh 未安装，正在安装..."
         curl https://get.acme.sh | sh
         source ~/.bashrc
-        fi
-        # 设置证书保存路径
-        certPath="/root/DNScertificate/${CF_Domain}"
-        if [ ! -d "$certPath" ]; then
-            mkdir -p "$certPath"
-        fi
+    fi
 
-        # 设置 Cloudflare API 相关环境变量
-        export CF_Key="${CF_GlobalKey}"
-        export CF_Email="${CF_AccountEmail}"
+    # 设置证书保存路径
+    certPath="/root/DNScertificate/${CF_Domain}"
+    if [ ! -d "$certPath" ]; then
+        mkdir -p "$certPath"
+    fi
 
-        # 使用 DNS-01 验证方式申请证书
-        acme.sh --register-account -m ${CF_AccountEmail}
-        ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
+    # 设置 Cloudflare API 相关环境变量
+    export CF_Key="${CF_GlobalKey}"
+    export CF_Email="${CF_AccountEmail}"
 
+    # 使用 DNS-01 验证方式申请证书
+    acme.sh --register-account -m ${CF_AccountEmail}
+    ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
+
+    if [ $? -ne 0 ]; then
+        echo "证书申请失败，请检查错误日志。"
+        exit 1
+    else
+        echo "证书申请成功，安装证书中..."
+        ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} \
+            --ca-file ${certPath}/ca.cer \
+            --cert-file ${certPath}/${CF_Domain}.cer \
+            --key-file ${certPath}/${CF_Domain}.key \
+            --fullchain-file ${certPath}/fullchain.cer
         if [ $? -ne 0 ]; then
-            echo "证书申请失败，请检查错误日志。"
+            echo "证书安装失败，请检查错误日志。"
             exit 1
         else
-            echo "证书申请成功，安装证书中..."
-            ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} \
-                --ca-file ${certPath}/ca.cer \
-                --cert-file ${certPath}/${CF_Domain}.cer \
-                --key-file ${certPath}/${CF_Domain}.key \
-                --fullchain-file ${certPath}/fullchain.cer
-            if [ $? -ne 0 ]; then
-                echo "证书安装失败，请检查错误日志。"
-                exit 1
-            else
-                echo "证书安装成功。"
-                echo "证书公钥保存路径: ${certPath}/${CF_Domain}.cer"
-                echo "证书私钥保存路径: ${certPath}/${CF_Domain}.key"
-                echo "证书完整链保存路径: ${certPath}/fullchain.cer"
-            fi
+            echo "证书安装成功。"
+            echo "证书公钥保存路径: ${certPath}/${CF_Domain}.cer"
+            echo "证书私钥保存路径: ${certPath}/${CF_Domain}.key"
+            echo "证书完整链保存路径: ${certPath}/fullchain.cer"
         fi
+    fi
 
-        # 更新 acme.sh 脚本
-        echo "正在更新acme.sh脚本..."
-        ~/.acme.sh/acme.sh --upgrade --auto-upgrade
-        if [ $? -ne 0 ]; then
-            echo "acme.sh脚本自动更新失败，请检查错误日志。"
-        else
-            echo "acme.sh脚本已成功更新。"
-        fi
-        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x scripts.sh
-        (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
-        service cron restart
-        ;;
+    # 更新 acme.sh 脚本
+    echo "正在更新acme.sh脚本..."
+    ~/.acme.sh/acme.sh --upgrade --auto-upgrade
+    if [ $? -ne 0 ]; then
+        echo "acme.sh脚本自动更新失败，请检查错误日志。"
+    else
+        echo "acme.sh脚本已成功更新。"
+    fi
+
+    curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x updatecert.sh
+    (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
+    service cron restart
+    ;;
+
     17)
     echo "选择操作"
     echo "1.表示查看证书到期时间"
