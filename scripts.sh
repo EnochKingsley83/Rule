@@ -185,62 +185,89 @@ case $choice in
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
     16)
-        echo "17. 通过DNS-01验证给域名申请ACME证书"
-       echo "并配置在每天晚上12点（系统本身时区）更新所有域名证书"
-       echo "证书目录/root/DNScertificate/"
-       echo "申请ACME证书（DNS-01验证）..."
-       echo "请设置域名:"
-       read -p "输入域名: " CF_Domain
-       echo "请设置Cloudflare的API Token:"
-       read -p "输入API Token: " CF_GlobalKey
-       echo "请设置Cloudflare的注册邮箱:"
-       read -p "输入注册邮箱: " CF_AccountEmail
-
-       curl https://get.acme.sh | sh
-
-       certPath="/root/DNScertificate/${CF_Domain}"
-       if [ ! -d "$certPath" ]; then
-           mkdir -p "$certPath"
-       fi
-
-       # 设置 Cloudflare API 相关环境变量
-       export CF_KEY="${CF_GlobalKey}"
-       export CF_EMAIL="${CF_AccountEmail}"
-
-       ~/.acme.sh/acme.sh --register-account -m "${CF_AccountEmail}"
-       ~/.acme.sh/acme.sh --issue --dns dns_cf -d "${CF_Domain}" -d "*.${CF_Domain}" --log
-
-
-       if [ $? -ne 0 ]; then
-           echo "证书申请失败，请检查错误日志。"
-           exit 1
-       else
-           echo "证书申请成功，安装证书中..."
-           ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} \
-               --ca-file ${certPath}/ca.cer \
-               --cert-file ${certPath}/${CF_Domain}.cer \
-               --key-file ${certPath}/${CF_Domain}.key \
-               --fullchain-file ${certPath}/fullchain.cer
-           if [ $? -ne 0 ]; then
-               echo "证书安装失败，请检查错误日志。"
-               exit 1
-           else
-               echo "证书安装成功。"
-               echo "证书公钥保存路径: ${certPath}/${CF_Domain}.cer"
-               echo "证书私钥保存路径: ${certPath}/${CF_Domain}.key"
-               echo "证书完整链保存路径: ${certPath}/fullchain.cer"
-           fi
-       fi
-
-       # 更新 acme.sh 脚本
-       echo "正在更新acme.sh脚本..."
-       ~/.acme.sh/acme.sh --upgrade --auto-upgrade
-       if [ $? -ne 0 ]; then
-           echo "acme.sh脚本自动更新失败，请检查错误日志。"
-       else
-           echo "acme.sh脚本已成功更新。"
-       fi
-
+# method for DNS API mode
+ssl_cert_issue_by_cloudflare() {
+    echo -E ""
+    LOGD "******使用说明******"
+    LOGI "该脚本将使用Acme脚本申请证书, 使用时需保证:"
+    LOGI "1. 知晓Cloudflare 注册邮箱"
+    LOGI "2. 知晓Cloudflare Global API Key"
+    LOGI "3. 域名已通过Cloudflare进行解析到当前服务器"
+    LOGI "4. 该脚本申请证书默认安装路径为/root/DNScertificate目录"
+    confirm "我已确认以上内容[y/n]" "y"
+    if [ $? -eq 0 ]; then
+        install_acme
+        if [ $? -ne 0 ]; then
+            LOGE "无法安装acme, 请检查错误日志"
+            exit 1
+        fi
+        CF_Domain=""
+        CF_GlobalKey=""
+        CF_AccountEmail=""
+        certPath=/root/DNScertificate
+        if [ ! -d "$certPath" ]; then
+            mkdir -p $certPath
+        fi
+        LOGD "请设置域名:"
+        read -p "Input your domain here:" CF_Domain
+        LOGD "你的域名设置为:${CF_Domain}, 正在进行域名合法性校验..."
+        # here we need to judge whether there exists cert already
+        local currentCert=$(~/.acme.sh/acme.sh --list | grep ${CF_Domain} | wc -l)
+        if [ ${currentCert} -ne 0 ]; then
+            local certInfo=$(~/.acme.sh/acme.sh --list)
+            LOGE "域名合法性校验失败, 当前环境已有对应域名证书, 不可重复申请, 当前证书详情:"
+            LOGI "$certInfo"
+            exit 1
+        else
+            LOGI "域名合法性校验通过..."
+        fi
+        LOGD "请设置API密钥:"
+        read -p "Input your key here:" CF_GlobalKey
+        LOGD "你的API密钥为:${CF_GlobalKey}"
+        LOGD "请设置注册邮箱:"
+        read -p "Input your email here:" CF_AccountEmail
+        LOGD "你的注册邮箱为:${CF_AccountEmail}"
+        ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+        if [ $? -ne 0 ]; then
+            LOGE "修改默认CA为Lets'Encrypt失败, 脚本退出"
+            exit 1
+        fi
+        export CF_Key="${CF_GlobalKey}"
+        export CF_Email=${CF_AccountEmail}
+        ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
+        if [ $? -ne 0 ]; then
+            LOGE "证书签发失败, 脚本退出"
+            rm -rf ~/.acme.sh/${CF_Domain}
+            exit 1
+        else
+            LOGI "证书签发成功, 安装中..."
+        fi
+        mkdir -p ${certPath}/${CF_Domain}
+        ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} --ca-file ${certPath}/${CF_Domain}/ca.cer \
+            --cert-file ${certPath}/${CF_Domain}/${CF_Domain}.cer --key-file ${certPath}/${CF_Domain}/${CF_Domain}.key \
+            --fullchain-file ${certPath}/${CF_Domain}/fullchain.cer
+        if [ $? -ne 0 ]; then
+            LOGE "证书安装失败, 脚本退出"
+            rm -rf ~/.acme.sh/${CF_Domain}
+            exit 1
+        else
+            LOGI "证书安装成功, 开启自动更新..."
+        fi
+        ~/.acme.sh/acme.sh --upgrade --auto-upgrade
+        if [ $? -ne 0 ]; then
+            LOGE "自动更新设置失败, 脚本退出"
+            ls -lah ${certPath}
+            chmod 755 $certPath
+            exit 1
+        else
+            LOGI "证书已安装且已开启自动更新, 具体信息如下"
+            ls -lah ${certPath}
+            chmod 755 $certPath
+        fi
+    else
+        show_menu
+    fi
+}
        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x updatecert.sh
        (crontab -l 2>/dev/null | grep -Fq "0 0 * * * /root/updatecert.sh") || (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
        service cron restart
