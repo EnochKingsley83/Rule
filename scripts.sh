@@ -207,9 +207,9 @@ case $choice in
        export CF_KEY="${CF_GlobalKey}"
        export CF_EMAIL="${CF_AccountEmail}"
 
-       # 使用 DNS-01 验证方式申请证书
-       ~/.acme.sh/acme.sh --register-account -m ${CF_AccountEmail}
-       ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
+       ~/.acme.sh/acme.sh --register-account -m "${CF_AccountEmail}"
+       ~/.acme.sh/acme.sh --issue --dns dns_cf -d "${CF_Domain}" -d "*.${CF_Domain}" --log
+
 
        if [ $? -ne 0 ]; then
            echo "证书申请失败，请检查错误日志。"
