@@ -19,6 +19,7 @@ echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
 echo "16. 通过HTTP-01 验证给域名申请ACME证书"
 echo "17. 通过DNS-01 验证给域名申请ACME证书"
+echo "18. 更新本脚本"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -246,7 +247,9 @@ case $choice in
         echo "公钥：/root/certification/${certname}/fullchain.pem"
         echo "私钥：/root/certification/${certname}/privkey.pem"
         ;;
-
+    17)
+        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
+        ;;
     0)
         # 返回
         echo "退出脚本..."
@@ -259,5 +262,4 @@ esac
 
 echo "脚本执行完毕，重新运行中..."
 sleep 2
-curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
 ./"$0"
