@@ -183,9 +183,9 @@ case $choice in
     15)
         docker pull traffmonetizer/cli_v2:latest
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
-        ;;
+  o      ;;
     16)
-
+ech
     17)
     echo "选择操作"
     echo "1.表示查看证书到期时间"
