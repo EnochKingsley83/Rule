@@ -247,7 +247,7 @@ case $choice in
         echo "公钥：/root/certification/${certname}/fullchain.pem"
         echo "私钥：/root/certification/${certname}/privkey.pem"
         ;;
-    17)
+    18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
         ;;
     0)
