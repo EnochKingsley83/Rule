@@ -202,9 +202,8 @@ case $choice in
         echo "公钥：/root/HTTPcertification/$certname/fullchain.pem"
         echo "私钥：/root/HTTPcertification/$certname/privkey.pem"
         ;;
-    17)
+17)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
-
         echo "申请ACME证书（DNS-01验证）..."
         echo "请设置域名:"
         read -p "输入域名: " CF_Domain
@@ -213,9 +212,10 @@ case $choice in
         echo "请设置Cloudflare的注册邮箱:"
         read -p "输入注册邮箱: " CF_AccountEmail
 
-        certPath=/root/DNScertificate
+        # 设置证书保存路径
+        certPath="/root/DNScertificate/${CF_Domain}"
         if [ ! -d "$certPath" ]; then
-            mkdir -p $certPath
+            mkdir -p "$certPath"
         fi
 
         # 设置 Cloudflare API 相关环境变量
