@@ -188,19 +188,19 @@ case $choice in
         read -p "请输入你的邮箱以注册ZeroSSL：" email
 
         certname=${domain}
-        mkdir -p /root/certification/$certname
+        mkdir -p /root/HTTPcertification/$certname
         apt update
         apt install socat -y
         curl https://get.acme.sh | sh
         ~/.acme.sh/acme.sh --register-account -m $email
         ~/.acme.sh/acme.sh --issue -d $domain --standalone
         ~/.acme.sh/acme.sh --install-cert -d $domain \
-            --key-file /root/certification/$certname/privkey.pem \
-            --fullchain-file /root/certification/$certname/fullchain.pem
+            --key-file /root/HTTPcertification/$certname/privkey.pem \
+            --fullchain-file /root/HTTPcertification/$certname/fullchain.pem
 
-        echo "证书已保存至 /root/certification/$certname"
-        echo "公钥：/root/certification/$certname/fullchain.pem"
-        echo "私钥：/root/certification/$certname/privkey.pem"
+        echo "证书已保存至 /root/HTTPcertification/$certname"
+        echo "公钥：/root/HTTPcertification/$certname/fullchain.pem"
+        echo "私钥：/root/HTTPcertification/$certname/privkey.pem"
         ;;
     17)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
