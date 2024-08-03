@@ -212,6 +212,7 @@ case $choice in
         export CF_Email="${CF_AccountEmail}"
 
         # 使用 DNS-01 验证方式申请证书
+        acme.sh --register-account -m ${CF_AccountEmail}
         ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
 
         if [ $? -ne 0 ]; then
