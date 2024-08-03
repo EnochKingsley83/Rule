@@ -201,6 +201,7 @@ case $choice in
         echo "证书已保存至 /root/HTTPcertification/$certname"
         echo "公钥：/root/HTTPcertification/$certname/fullchain.pem"
         echo "私钥：/root/HTTPcertification/$certname/privkey.pem"
+        exit
         ;;
 17)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
@@ -254,6 +255,7 @@ case $choice in
         else
             echo "acme.sh脚本已成功更新。"
         fi
+        exit
         ;;
     18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
