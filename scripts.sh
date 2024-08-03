@@ -195,7 +195,12 @@ case $choice in
         read -p "输入API Token: " CF_GlobalKey
         echo "请设置Cloudflare的注册邮箱:"
         read -p "输入注册邮箱: " CF_AccountEmail
-
+        
+        if [ ! -f "/root/.acme.sh/acme.sh" ]; then
+        echo "acme.sh 未安装，正在安装..."
+        curl https://get.acme.sh | sh
+        source ~/.bashrc
+        fi
         # 设置证书保存路径
         certPath="/root/DNScertificate/${CF_Domain}"
         if [ ! -d "$certPath" ]; then
