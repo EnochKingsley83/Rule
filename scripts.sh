@@ -186,6 +186,7 @@ case $choice in
 16)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
         echo "并配置在每天晚上12点（系统本身时区）更新所有域名证书"
+        echo "证书目录/root/DNScertificate/"
         echo "申请ACME证书（DNS-01验证）..."
         echo "请设置域名:"
         read -p "输入域名: " CF_Domain
