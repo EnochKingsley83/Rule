@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 遍历所有域名文件夹并进行证书更新
-for domainDir in /root/DNScertificate/*; do
+for domainDir in /root/cert/*; do
     if [ -d "$domainDir" ]; then
         domain=$(basename "$domainDir")
         echo "正在检查和更新域名：$domain"
