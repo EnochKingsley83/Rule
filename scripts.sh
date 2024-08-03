@@ -18,7 +18,7 @@ echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
 echo "16. 通过HTTP-01 验证给域名申请ACME证书"
-echo "17. 通过 DNS-01 验证给域名申请ACME证书"
+echo "17. 通过DNS-01 验证给域名申请ACME证书"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
