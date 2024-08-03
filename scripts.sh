@@ -202,7 +202,7 @@ case $choice in
         echo "私钥：/root/certification/$certname/privkey.pem"
         ;;
     17)
-        # 给域名申请ACME证书（DNS-01验证）
+        # 通过DNS-01 验证给域名申请ACME证书
         echo "申请ACME证书（DNS-01验证）..."
         read -p "请输入证书的域名：" domain
         certname="${domain}"  # 证书名称与域名相同
@@ -213,18 +213,27 @@ case $choice in
             curl https://get.acme.sh | sh
         fi
 
-        # 使用Cloudflare API进行DNS-01验证
-        read -p "请输入Cloudflare的API Token：" cf_api_token
-        export CF_API_TOKEN="$cf_api_token"
+        # 设定 Cloudflare API Token 和电子邮件
+        read -p "请输入 Cloudflare 的 API Token：" cf_api_token
+        read -p "请输入您的电子邮件地址：" email
 
+        export CF_API_TOKEN="$cf_api_token"
+        export CF_API_EMAIL="$email"
+
+        # 注册账户（如果尚未注册）
+        ~/.acme.sh/acme.sh --register-account -m "$email"
+
+        # 申请证书
         echo "开始申请证书..."
         ~/.acme.sh/acme.sh --issue \
             --dns dns_cf \
             --domain "$domain" \
             --home "$HOME/.acme.sh"
 
-        echo "证书申请完成，证书将保存在/root/certification/${certname}/"
+        # 创建证书保存目录
         mkdir -p /root/certification/${certname}
+
+        # 安装证书
         ~/.acme.sh/acme.sh --install-cert \
             --domain "$domain" \
             --home "$HOME/.acme.sh" \
@@ -237,6 +246,7 @@ case $choice in
         echo "公钥：/root/certification/${certname}/fullchain.pem"
         echo "私钥：/root/certification/${certname}/privkey.pem"
         ;;
+
     0)
         # 返回
         echo "退出脚本..."
