@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# 交互式选择
+
 echo "1. 开启BBR并安装必要依赖"
 echo "2. 安装Docker"
 echo "3. 安装宝塔面板"
