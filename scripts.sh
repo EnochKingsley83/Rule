@@ -182,7 +182,6 @@ case $choice in
     15)
         docker pull traffmonetizer/cli_v2:latest
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
-        exit
         ;;
     16)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
@@ -241,7 +240,6 @@ case $choice in
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x scripts.sh
         (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
         service cron restart
-        exit
         ;;
     17)
     echo "选择操作"
@@ -267,7 +265,6 @@ case $choice in
             echo "无效的选择。请输入 1 或 2。"
             ;;
     esac
-    exit
     ;;
     18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh && sudo ./scripts.sh
@@ -275,7 +272,6 @@ case $choice in
         ;;
     19)
         sudo dpkg-reconfigure tzdata
-        exit
         ;;
     0)
         # 返回
