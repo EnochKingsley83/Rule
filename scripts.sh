@@ -204,11 +204,11 @@ case $choice in
     fi
 
     # 设置 Cloudflare API 相关环境变量
-    export CF_Key="${CF_GlobalKey}"
-    export CF_Email="${CF_AccountEmail}"
+    export CF_API_KEY="${CF_GlobalKey}"
+    export CF_API_EMAIL="${CF_AccountEmail}"
 
     # 使用 DNS-01 验证方式申请证书
-    acme.sh --register-account -m ${CF_AccountEmail}
+    ~/.acme.sh/acme.sh --register-account -m ${CF_AccountEmail}
     ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
 
     if [ $? -ne 0 ]; then
