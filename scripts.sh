@@ -265,7 +265,6 @@ case $choice in
             ;;
     esac
     echo
-    ./"$0"
     ;;
     18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh
