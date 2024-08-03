@@ -1,14 +1,23 @@
-#!/bin/bash
-
-#!/bin/bash
-
-echo "请选择要执行的操作："
-
-printf "%-3s %-3s %-3s %-3s\n" "1. 开启BBR并安装必要依赖" "2. 安装Docker" "3. 安装宝塔面板" "4. 其他拥塞控制算法"
-printf "%-3s %-3s %-3s %-3s\n" "5. 哪吒面板" "6. x-ui面板" "7. 流媒体检测" "8. Swap"
-printf "%-3s %-3s %-3s %-3s\n" "9. 内网穿透frp安装" "10. 关闭ipv6" "11. 三网测速" "12. 修改命令提示符"
-printf "%-3s %-3s %-3s %-3s\n" "13. 修改SSH配置并更改密码" "14. 安装并连接Cloudflare WARP到40000端口" "15. 安装traffmonetizer（需要先自行安装docker）" "16. 通过DNS-01 验证给域名申请ACME证书"
-printf "%-3s %-3s %-3s %-3s\n" "17. 查看域名证书到期时间并手动选择是否强制更新证书" "18. 更新本脚本" "19. 可视化更改时区" "0. 返回"
+echo "1. 开启BBR并安装必要依赖"
+echo "2. 安装Docker"
+echo "3. 安装宝塔面板"
+echo "4. 其他拥塞控制算法"
+echo "5. 哪吒面板"
+echo "6. x-ui面板"
+echo "7. 流媒体检测"
+echo "8. Swap"
+echo "9. 内网穿透frp安装"
+echo "10. 关闭ipv6"
+echo "11. 三网测速"
+echo "12. 修改命令提示符"
+echo "13. 修改SSH配置并更改密码"
+echo "14. 安装并连接Cloudflare WARP到40000端口"
+echo "15. 安装traffmonetizer（需要先自行安装docker）"
+echo "16. 通过DNS-01 验证给域名申请ACME证书"
+echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
+echo "18. 更新本脚本"
+echo "19. 可视化更改时区"
+echo "0. 返回"
 
 
 read -p "请输入选项编号：" choice
