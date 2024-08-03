@@ -17,9 +17,8 @@ echo "12. 修改命令提示符"
 echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
-echo "16. 通过HTTP-01 验证给域名申请ACME证书"
-echo "17. 通过DNS-01 验证给域名申请ACME证书"
-echo "18. 更新本脚本"
+echo "16. 通过DNS-01 验证给域名申请ACME证书"
+echo "17. 更新本脚本"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -181,29 +180,9 @@ case $choice in
     15)
         docker pull traffmonetizer/cli_v2:latest
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
-        ;;
-    16)
-        # Debian系统申请ACME证书
-        read -p "请输入证书的域名：" domain
-        read -p "请输入你的邮箱以注册ZeroSSL：" email
-
-        certname=${domain}
-        mkdir -p /root/HTTPcertification/$certname
-        apt update
-        apt install socat -y
-        curl https://get.acme.sh | sh
-        ~/.acme.sh/acme.sh --register-account -m $email
-        ~/.acme.sh/acme.sh --issue -d $domain --standalone
-        ~/.acme.sh/acme.sh --install-cert -d $domain \
-            --key-file /root/HTTPcertification/$certname/privkey.pem \
-            --fullchain-file /root/HTTPcertification/$certname/fullchain.pem
-
-        echo "证书已保存至 /root/HTTPcertification/$certname"
-        echo "公钥：/root/HTTPcertification/$certname/fullchain.pem"
-        echo "私钥：/root/HTTPcertification/$certname/privkey.pem"
         exit
         ;;
-17)
+16)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
         echo "申请ACME证书（DNS-01验证）..."
         echo "请设置域名:"
@@ -255,10 +234,14 @@ case $choice in
         else
             echo "acme.sh脚本已成功更新。"
         fi
+        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x scripts.sh
+        (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
+        service cron restart
         exit
         ;;
-    18)
-        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
+    17)
+        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh
+        exit
         ;;
     0)
         # 返回
