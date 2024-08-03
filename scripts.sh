@@ -205,7 +205,7 @@ case $choice in
 
     # 设置 Cloudflare API 相关环境变量
     export CF_API_KEY="${CF_GlobalKey}"
-    export CF_API_EMAIL="${CF_AccountEmail}"
+    export CF_EMAIL="${CF_AccountEmail}"
 
     # 使用 DNS-01 验证方式申请证书
     ~/.acme.sh/acme.sh --register-account -m ${CF_AccountEmail}
