@@ -183,12 +183,14 @@ case $choice in
     16)
         # Debian系统申请ACME证书
         read -p "请输入证书的域名：" domain
-        read -p "请输入证书名称：" certname
+        read -p "请输入你的邮箱以注册ZeroSSL：" email
 
+        certname=${domain}
         mkdir -p /root/certification/$certname
         apt update
         apt install socat -y
         curl https://get.acme.sh | sh
+        ~/.acme.sh/acme.sh --register-account -m $email
         ~/.acme.sh/acme.sh --issue -d $domain --standalone
         ~/.acme.sh/acme.sh --install-cert -d $domain \
             --key-file /root/certification/$certname/privkey.pem \
