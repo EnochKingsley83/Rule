@@ -18,6 +18,7 @@ echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
 echo "16. 通过HTTP-01 验证给域名申请ACME证书"
+echo "17. 通过 DNS-01 验证给域名申请ACME证书"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -199,6 +200,42 @@ case $choice in
         echo "证书已保存至 /root/certification/$certname"
         echo "公钥：/root/certification/$certname/fullchain.pem"
         echo "私钥：/root/certification/$certname/privkey.pem"
+        ;;
+    17)
+        # 给域名申请ACME证书（DNS-01验证）
+        echo "申请ACME证书（DNS-01验证）..."
+        read -p "请输入证书的域名：" domain
+        certname="${domain}"  # 证书名称与域名相同
+
+        # 检查acme.sh是否已安装，如果没有则安装
+        if [ ! -d "$HOME/.acme.sh" ]; then
+            echo "acme.sh未安装，正在安装..."
+            curl https://get.acme.sh | sh
+        fi
+
+        # 使用Cloudflare API进行DNS-01验证
+        read -p "请输入Cloudflare的API Token：" cf_api_token
+        export CF_API_TOKEN="$cf_api_token"
+
+        echo "开始申请证书..."
+        ~/.acme.sh/acme.sh --issue \
+            --dns dns_cf \
+            --domain "$domain" \
+            --home "$HOME/.acme.sh"
+
+        echo "证书申请完成，证书将保存在/root/certification/${certname}/"
+        mkdir -p /root/certification/${certname}
+        ~/.acme.sh/acme.sh --install-cert \
+            --domain "$domain" \
+            --home "$HOME/.acme.sh" \
+            --cert-file "/root/certification/${certname}/fullchain.pem" \
+            --key-file "/root/certification/${certname}/privkey.pem" \
+            --fullchain-file "/root/certification/${certname}/fullchain.pem" \
+            --reloadcmd "systemctl reload nginx"  # 适用于nginx，其他服务请修改
+
+        echo "证书已保存至 /root/certification/${certname}"
+        echo "公钥：/root/certification/${certname}/fullchain.pem"
+        echo "私钥：/root/certification/${certname}/privkey.pem"
         ;;
     0)
         # 返回
