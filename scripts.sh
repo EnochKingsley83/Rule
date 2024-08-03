@@ -242,7 +242,7 @@ case $choice in
     fi
 
     curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x updatecert.sh
-    (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
+    (crontab -l 2>/dev/null | grep -Fq "0 0 * * * /root/updatecert.sh") || (crontab -l 2>/dev/null; echo "0 0 * * * /root/updatecert.sh") | crontab -
     service cron restart
     ;;
 
