@@ -17,6 +17,7 @@ echo "12. 修改命令提示符"
 echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
+echo "16. 给域名申请ACME证书"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -178,6 +179,24 @@ case $choice in
     15)
         docker pull traffmonetizer/cli_v2:latest
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
+        ;;
+    16)
+        # Debian系统申请ACME证书
+        read -p "请输入证书的域名：" domain
+        read -p "请输入证书名称：" certname
+
+        mkdir -p /root/certification/$certname
+        apt update
+        apt install socat -y
+        curl https://get.acme.sh | sh
+        ~/.acme.sh/acme.sh --issue -d $domain --standalone
+        ~/.acme.sh/acme.sh --install-cert -d $domain \
+            --key-file /root/certification/$certname/privkey.pem \
+            --fullchain-file /root/certification/$certname/fullchain.pem
+
+        echo "证书已保存至 /root/certification/$certname"
+        echo "公钥：/root/certification/$certname/fullchain.pem"
+        echo "私钥：/root/certification/$certname/privkey.pem"
         ;;
     0)
         # 返回
