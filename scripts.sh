@@ -203,49 +203,57 @@ case $choice in
         echo "私钥：/root/certification/$certname/privkey.pem"
         ;;
     17)
-        # 通过DNS-01 验证给域名申请ACME证书
-        echo "申请ACME证书（DNS-01验证）..."
-        read -p "请输入证书的域名：" domain
-        certname="${domain}"  # 证书名称与域名相同
+        echo "17. 通过DNS-01验证给域名申请ACME证书"
 
-        # 检查acme.sh是否已安装，如果没有则安装
-        if [ ! -d "$HOME/.acme.sh" ]; then
-            echo "acme.sh未安装，正在安装..."
-            curl https://get.acme.sh | sh
+        echo "申请ACME证书（DNS-01验证）..."
+        echo "请设置域名:"
+        read -p "输入域名: " CF_Domain
+        echo "请设置Cloudflare的API Token:"
+        read -p "输入API Token: " CF_GlobalKey
+        echo "请设置Cloudflare的注册邮箱:"
+        read -p "输入注册邮箱: " CF_AccountEmail
+
+        certPath=/root/DNScertificate
+        if [ ! -d "$certPath" ]; then
+            mkdir -p $certPath
         fi
 
-        # 设定 Cloudflare API Token 和电子邮件
-        read -p "请输入 Cloudflare 的 API Token：" cf_api_token
-        read -p "请输入您的电子邮件地址：" email
+        # 设置 Cloudflare API 相关环境变量
+        export CF_Key="${CF_GlobalKey}"
+        export CF_Email="${CF_AccountEmail}"
 
-        export CF_API_TOKEN="$cf_api_token"
-        export CF_API_EMAIL="$email"
+        # 使用 DNS-01 验证方式申请证书
+        ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${CF_Domain} -d *.${CF_Domain} --log
 
-        # 注册账户（如果尚未注册）
-        ~/.acme.sh/acme.sh --register-account -m "$email"
+        if [ $? -ne 0 ]; then
+            echo "证书申请失败，请检查错误日志。"
+            exit 1
+        else
+            echo "证书申请成功，安装证书中..."
+            ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} \
+                --ca-file ${certPath}/ca.cer \
+                --cert-file ${certPath}/${CF_Domain}.cer \
+                --key-file ${certPath}/${CF_Domain}.key \
+                --fullchain-file ${certPath}/fullchain.cer
+            if [ $? -ne 0 ]; then
+                echo "证书安装失败，请检查错误日志。"
+                exit 1
+            else
+                echo "证书安装成功。"
+                echo "证书公钥保存路径: ${certPath}/${CF_Domain}.cer"
+                echo "证书私钥保存路径: ${certPath}/${CF_Domain}.key"
+                echo "证书完整链保存路径: ${certPath}/fullchain.cer"
+            fi
+        fi
 
-        # 申请证书
-        echo "开始申请证书..."
-        ~/.acme.sh/acme.sh --issue \
-            --dns dns_cf \
-            --domain "$domain" \
-            --home "$HOME/.acme.sh"
-
-        # 创建证书保存目录
-        mkdir -p /root/certification/${certname}
-
-        # 安装证书
-        ~/.acme.sh/acme.sh --install-cert \
-            --domain "$domain" \
-            --home "$HOME/.acme.sh" \
-            --cert-file "/root/certification/${certname}/fullchain.pem" \
-            --key-file "/root/certification/${certname}/privkey.pem" \
-            --fullchain-file "/root/certification/${certname}/fullchain.pem" \
-            --reloadcmd "systemctl reload nginx"  # 适用于nginx，其他服务请修改
-
-        echo "证书已保存至 /root/certification/${certname}"
-        echo "公钥：/root/certification/${certname}/fullchain.pem"
-        echo "私钥：/root/certification/${certname}/privkey.pem"
+        # 更新 acme.sh 脚本
+        echo "正在更新acme.sh脚本..."
+        ~/.acme.sh/acme.sh --upgrade --auto-upgrade
+        if [ $? -ne 0 ]; then
+            echo "acme.sh脚本自动更新失败，请检查错误日志。"
+        else
+            echo "acme.sh脚本已成功更新。"
+        fi
         ;;
     18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
