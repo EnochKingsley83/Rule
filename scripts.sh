@@ -19,6 +19,7 @@ echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
 echo "16. 通过DNS-01 验证给域名申请ACME证书"
 echo "17. 更新本脚本"
+echo "18. 可视化更改时区"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -240,7 +241,11 @@ case $choice in
         exit
         ;;
     17)
-        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh
+        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh && sudo ./scripts.sh
+        exit
+        ;;
+    18)
+        sudo dpkg-reconfigure tzdata
         exit
         ;;
     0)
