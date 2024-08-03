@@ -18,8 +18,9 @@ echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
 echo "15. 安装traffmonetizer（需要先自行安装docker）"
 echo "16. 通过DNS-01 验证给域名申请ACME证书"
-echo "17. 更新本脚本"
-echo "18. 可视化更改时区"
+echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
+echo "18. 更新本脚本"
+echo "19. 可视化更改时区"
 echo "0. 返回"
 
 read -p "请输入选项编号：" choice
@@ -183,7 +184,7 @@ case $choice in
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         exit
         ;;
-16)
+    16)
         echo "17. 通过DNS-01验证给域名申请ACME证书"
         echo "并配置在每天晚上12点（系统本身时区）更新所有域名证书"
         echo "证书目录/root/DNScertificate/"
@@ -243,10 +244,36 @@ case $choice in
         exit
         ;;
     17)
+    echo "17. 选择操作"
+    echo "1. 查看证书到期时间"
+    echo "2. 强制更新所有证书"
+
+    read -p "请输入您的选择 (1 或 2): " choice
+
+    case $choice in
+        1)
+            echo "下载并运行查看证书到期时间的脚本..."
+            curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/showdate.sh -o showdate.sh
+            chmod +x showdate.sh
+            ./showdate.sh
+            ;;
+        2)
+            echo "下载并运行强制更新证书的脚本..."
+            curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh
+            chmod +x updatecert.sh
+            ./updatecert.sh
+            ;;
+        *)
+            echo "无效的选择。请输入 1 或 2。"
+            ;;
+    esac
+    exit
+    ;;
+    18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh && sudo ./scripts.sh
         exit
         ;;
-    18)
+    19)
         sudo dpkg-reconfigure tzdata
         exit
         ;;
