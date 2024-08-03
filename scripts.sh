@@ -204,7 +204,7 @@ case $choice in
        fi
 
        # 设置 Cloudflare API 相关环境变量
-       export CF_API_KEY="${CF_GlobalKey}"
+       export CF_KEY="${CF_GlobalKey}"
        export CF_EMAIL="${CF_AccountEmail}"
 
        # 使用 DNS-01 验证方式申请证书
