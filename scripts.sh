@@ -249,4 +249,5 @@ esac
 
 echo "脚本执行完毕，重新运行中..."
 sleep 2
+curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh &&  ./scripts.sh
 ./"$0"
