@@ -265,6 +265,7 @@ case $choice in
             echo "无效的选择。请输入 1 或 2。"
             ;;
     esac
+    ./"$0"
     ;;
     18)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/scripts.sh -o scripts.sh && chmod +x scripts.sh && sudo ./scripts.sh
