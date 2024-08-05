@@ -40,6 +40,7 @@ case $choice in
         apt install sudo vim -y
         apt install vnstat -y
         apt install curl -y
+        apt install bsdmainutils -y
         apt install unzip -y
         apt install net-tools -y
         apt install socat -y
@@ -186,6 +187,8 @@ case $choice in
         ;;
     16)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/registercert.sh -o registercert.sh && chmod +x registercert.sh && sudo ./registercert.sh
+        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x updatecert.sh
+        (crontab -l 2>/dev/null | grep -v '0 0 * * * /root/updatecert.sh'; echo '0 0 * * * /root/updatecert.sh') | crontab -
         ;;
     17)
     echo "选择操作"
