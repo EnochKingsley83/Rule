@@ -239,4 +239,6 @@ esac
 
 echo "脚本执行完毕，重新运行中..."
 sleep 2
+echo
+echo
 ./scripts.sh
