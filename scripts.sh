@@ -185,7 +185,7 @@ case $choice in
         docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
     16)
-        echo
+        curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/registercert.sh && chmod +x registercert.sh && sudo ./registercert.sh
         ;;
     17)
     echo "选择操作"
