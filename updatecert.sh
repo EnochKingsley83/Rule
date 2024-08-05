@@ -20,12 +20,12 @@ for domainDir in /root/cert/*; do
 done
 
 # 更新 acme.sh 脚本
-echo "正在更新acme.sh脚本..."
+echo "正在更新 acme.sh 脚本..."
 ~/.acme.sh/acme.sh --upgrade --auto-upgrade
 if [ $? -ne 0 ]; then
-    echo "acme.sh脚本自动更新失败，请检查错误日志。"
+    echo "acme.sh 脚本自动更新失败，请检查错误日志。"
 else
-    echo "acme.sh脚本已成功更新。"
+    echo "acme.sh 脚本已成功更新。"
 fi
 
 echo "脚本执行完毕。"
