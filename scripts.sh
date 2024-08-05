@@ -45,6 +45,9 @@ case $choice in
         apt install net-tools -y
         apt install socat -y
         apt install cron -y
+        sed -i '/^alias kj='\''\/root\/scripts.sh'\''/d' ~/.bashrc && echo "alias kj='/root/scripts.sh'" >> ~/.bashrc && source ~/.bashrc
+        echo "输入kj重新唤醒本脚本"
+
         ;;
     2)
         # 安装Docker
@@ -236,4 +239,4 @@ esac
 
 echo "脚本执行完毕，重新运行中..."
 sleep 2
-./"$0"
+./scripts.sh
