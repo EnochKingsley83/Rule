@@ -192,6 +192,7 @@ case $choice in
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/registercert.sh -o registercert.sh && chmod +x registercert.sh && sudo ./registercert.sh
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/updatecert.sh -o updatecert.sh && chmod +x updatecert.sh
         (crontab -l 2>/dev/null | grep -v '0 0 * * * /root/updatecert.sh'; echo '0 0 * * * /root/updatecert.sh') | crontab -
+        sudo systemctl restart cron
         ;;
     17)
     echo "选择操作"
