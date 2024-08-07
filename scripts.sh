@@ -48,6 +48,7 @@ case $choice in
         curl https://get.acme.sh | sh
         source ~/.bashrc
         sed -i '/^alias kj='\''\/root\/scripts.sh'\''/d' ~/.bashrc && echo "alias kj='/root/scripts.sh'" >> ~/.bashrc && source ~/.bashrc
+        source ~/.bashrc
         echo "输入kj重新唤醒本脚本"
 
         ;;
