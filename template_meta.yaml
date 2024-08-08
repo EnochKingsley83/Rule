@@ -1,0 +1,149 @@
+allow-lan: true
+dns:
+    default-nameserver:
+        - 114.114.114.114
+        - 223.5.5.5
+    enable: true
+    fallback:
+        - https://cloudflare-dns.com/dns-query
+        - https://dns.google/dns-query
+    fallback-filter:
+        domain:
+            - +.msftconnecttest.com
+            - +.msftncsi.com
+        geoip: true
+        geoip-code: CN
+        geosite:
+            - gfw
+        ipcidr:
+            - 240.0.0.0/4
+    ipv6: false
+    listen: 0.0.0.0:53
+    nameserver:
+        - https://dns.alidns.com/dns-query
+        - https://doh.pub/dns-query
+    nameserver-policy:
+        geosite:!cn: https://cloudflare-dns.com/dns-query
+    prefer-h3: true
+log-level: info
+mixed-port: 7890
+mode: rule
+proxies:
+proxy-groups:
+    - name: PROXY
+      type: select
+      proxies:
+        - <all>
+    - name: Oracle
+      type: select
+      proxies:
+        - DIRECT
+        - PROXY
+      - name: Encrypt
+      type: select
+      proxies:
+        - <countries>
+    - name: Chain
+      type: relay
+      proxies:
+        - PROXY
+        - Encrypt
+rule-providers:
+    ai:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/ai.yaml
+        type: http
+        url: https://raw.githubusercontent.com/EnochKingsley83/Rule/main/ai.yaml
+    apple:
+        behavior: domain
+        interval: 86400
+        path: ./ruleset/apple.yaml
+        type: http
+        url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt
+    games:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/games.yaml
+        type: http
+        url: https://raw.githubusercontent.com/EnochKingsley83/Rule/main/games.yaml
+    gamescn:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/gamescn.yaml
+        type: http
+        url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.yaml
+    google:
+        behavior: domain
+        interval: 86400
+        path: ./ruleset/google.yaml
+        type: http
+        url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt
+    googleseries:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/googleseries.yaml
+        type: http
+        url: https://raw.githubusercontent.com/EnochKingsley83/Rule/main/googleseries
+    icloud:
+        behavior: domain
+        interval: 86400
+        path: ./ruleset/icloud.yaml
+        type: http
+        url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt
+    microsoft:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/microsoft.yaml
+        type: http
+        url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+    oracle:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/oracle.yaml
+        type: http
+        url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Oracle/Oracle.yaml
+    steamcn:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/steamcn.yaml
+        type: http
+        url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml
+    telegram:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/telegram.yaml
+        type: http
+        url: https://raw.githubusercontent.com/EnochKingsley83/Rule/main/telegram.yaml
+    wifi-calling:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/wifi-calling.yaml
+        type: http
+        url: https://raw.githubusercontent.com/EnochKingsley83/Rule/main/wifi-calling.yaml
+    crypto:
+        behavior: classical
+        interval: 86400
+        path: ./ruleset/crypto.yaml
+        type: http
+        url: https://raw.githubusercontent.com/EnochKingsley83/Rule/main/Crypto.yaml
+rules:
+    - DOMAIN-SUFFIX,store.steampowered.com,PROXY
+    - DOMAIN-SUFFIX,steamcommunity.com,PROXY
+    - IP-CIDR,52.230.18.218/32,DIRECT
+    - RULE-SET,crypto,Encrypt
+    - RULE-SET,wifi-calling,PROXY
+    - RULE-SET,googleseries,PROXY
+    - RULE-SET,ai,PROXY
+    - RULE-SET,steamcn,DIRECT
+    - RULE-SET,gamescn,DIRECT
+    - RULE-SET,games,DIRECT
+    - RULE-SET,microsoft,PROXY
+    - RULE-SET,telegram,PROXY
+    - RULE-SET,icloud,DIRECT
+    - RULE-SET,apple,DIRECT
+    - RULE-SET,oracle,Oracle
+    - RULE-SET,google,PROXY
+    - GEOIP,CN,DIRECT
+    - GEOIP,LAN,DIRECT
+    - MATCH,PROXY
