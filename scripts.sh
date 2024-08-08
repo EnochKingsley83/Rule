@@ -47,8 +47,7 @@ case $choice in
         apt install cron -y
         curl https://get.acme.sh | sh
         source ~/.bashrc
-        sed -i '/^alias kj='\''\/root\/scripts.sh'\''/d' ~/.bashrc && echo "alias kj='/root/scripts.sh'" >> ~/.bashrc && source ~/.bashrc
-        source ~/.bashrc
+        sed -i '/^alias kj='\''\/root\/scripts.sh'\''/d' ~/.bashrc && echo "alias kj='/root/scripts.sh'" >> ~/.bashrc && . ~/.bashrc
         echo "输入kj重新唤醒本脚本"
 
         ;;
