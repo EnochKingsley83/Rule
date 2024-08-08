@@ -42,7 +42,11 @@ proxy-groups:
       - name: Encrypt
       type: select
       proxies:
-        - <countries>
+        - <tw>
+        - <hk>
+        - <de>
+        - <jp>
+        - <in>
     - name: Chain
       type: relay
       proxies:
