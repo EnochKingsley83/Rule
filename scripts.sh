@@ -7,7 +7,7 @@ echo "2. 安装Docker"
 echo "3. 安装宝塔面板"
 echo "4. 其他拥塞控制算法"
 echo "5. 哪吒面板"
-echo "6. x-ui面板"
+echo "6. s-ui面板"
 echo "7. 流媒体检测"
 echo "8. Swap"
 echo "9. 内网穿透frp安装"
@@ -83,8 +83,8 @@ case $choice in
         ;;
     6)
         # x-ui面板
-        echo "x-ui面板..."
-        bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
+        echo "s-ui面板..."
+        bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/master/install.sh)
         ;;
     7)
         # 流媒体检测
