@@ -16,7 +16,7 @@ echo "11. 三网测速"
 echo "12. 修改命令提示符"
 echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
-echo "15. 安装traffmonetizer（需要先自行安装docker）"
+echo "15. 安装traffmonetizer"
 echo "16. 通过DNS-01 验证给域名申请ACME证书"
 echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
 echo "18. 更新本脚本"
@@ -187,8 +187,28 @@ case $choice in
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
         ;;
     15)
+        echo "安装必要依赖..."
+        apt update -y
+        apt install sudo vim -y
+        apt install vnstat -y
+        apt install curl -y
+        apt install bsdmainutils -y
+        apt install unzip -y
+        apt install net-tools -y
+        apt install socat -y
+        # 安装Docker
+        echo "安装Docker..."
+        wget -qO- get.docker.com | bash
+        systemctl enable docker
+        curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
+        chmod +x /usr/local/bin/docker-compose
+        echo "Docker版本"
+        docker -v
+        echo "Docker-compose版本"
+        docker-compose --version
+        echo -e "\n"
         docker pull traffmonetizer/cli_v2:latest
-        docker run -i --name tm traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
+        docker run -i --name tm --restart=always traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
     16)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/registercert.sh -o registercert.sh && chmod +x registercert.sh && sudo ./registercert.sh
