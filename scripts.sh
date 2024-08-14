@@ -208,6 +208,8 @@ case $choice in
         docker-compose --version
         echo -e "\n"
         docker pull traffmonetizer/cli_v2:latest
+        docker pull repocket/repocket:latest
+        docker run --name repocket -e RP_EMAIL=enochkingsley83@gmail.com -e RP_API_KEY=5rg1EilcRORr4ZqV77OSTtqh0GV2 -d --restart=always repocket/repocket
         docker run -i --name tm --restart=always traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
     16)
