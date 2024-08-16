@@ -49,7 +49,21 @@ case $choice in
         curl https://get.acme.sh | sh
         source ~/.bashrc
         sed -i '/^alias kj='\''\/root\/scripts.sh'\''/d' ~/.bashrc && echo "alias kj='/root/scripts.sh'" >> ~/.bashrc && . ~/.bashrc
-        (crontab -l 2>/dev/null | grep -v '0 0 */3 * * /usr/bin/journalctl --vacuum-size=200M') | crontab -
+        
+        grep -q '^SystemMaxUse=' /etc/systemd/journald.conf && \
+        sed -i 's/^SystemMaxUse=.*/SystemMaxUse=300M/' /etc/systemd/journald.conf || \
+        echo 'SystemMaxUse=300M' >> /etc/systemd/journald.conf
+
+        grep -q '^SystemMaxFileSize=' /etc/systemd/journald.conf && \
+        sed -i 's/^SystemMaxFileSize=.*/SystemMaxFileSize=10M/' /etc/systemd/journald.conf || \
+        echo 'SystemMaxFileSize=10M' >> /etc/systemd/journald.conf
+
+        grep -q '^SystemKeepFiles=' /etc/systemd/journald.conf && \
+        sed -i 's/^SystemKeepFiles=.*/SystemKeepFiles=3/' /etc/systemd/journald.conf || \
+        echo 'SystemKeepFiles=3' >> /etc/systemd/journald.conf
+
+        journalctl --vacuum-time=1week
+        systemctl restart systemd-journald
         sudo systemctl restart cron
         echo "输入kj重新唤醒本脚本"
 
