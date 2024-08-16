@@ -208,8 +208,6 @@ case $choice in
         echo "Docker-compose版本"
         docker-compose --version
         echo -e "\n"
-        docker run -d --restart=always -e EARNFM_TOKEN="4bff00f2-eef3-4484-b49c-f2c0e3ae4ddf" --name earnfm-client earnfm/earnfm-client:latest
-        docker run --name repocket -e RP_EMAIL=enochkingsley83@gmail.com -e RP_API_KEY=5rg1EilcRORr4ZqV77OSTtqh0GV2 -d --restart=always repocket/repocket
         docker run -i --name tm --restart=always traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
         ;;
     16)
