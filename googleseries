@@ -1,3 +1,2 @@
 payload:
-  - DOMAIN,lens.l.google.com
-  - DOMAIN-SUFFIX,voice.google.com
+  - DOMAIN-KEYWORD,google
