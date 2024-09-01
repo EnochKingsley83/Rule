@@ -21,7 +21,7 @@ echo "16. 通过DNS-01 验证给域名申请ACME证书"
 echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
 echo "18. 更新本脚本"
 echo "19. 可视化更改时区"
-echo "20. 添加gost落地转发"
+echo "20. V2Ray一键安装脚本"
 echo "0. 返回"
 
 
@@ -266,7 +266,7 @@ case $choice in
         sudo dpkg-reconfigure tzdata
         ;;
     20)
-        wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.sh && chmod +x gost.sh && ./gost.sh
+        bash <(wget -qO- -o- https://git.io/v2ray.sh)
         ;;
     0)
         # 返回
