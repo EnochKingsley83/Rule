@@ -116,7 +116,7 @@ EOF
         echo "      - ./letsencrypt:/etc/letsencrypt" >> /root/npm/compose.yml
         cd /root/npm
         docker compose up -d
-        echo"证书和密钥路径:  /root/npm/letsencrypt/live/"
+        echo "证书和密钥路径:  /root/npm/letsencrypt/live/"
         ;;
     4)
         # 查看可用的拥塞控制算法
