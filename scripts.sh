@@ -47,7 +47,7 @@ case $choice in
         apt install socat -y
         apt install cron -y
 
-        echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
+        grep -qxF "alias kj='/root/scripts.sh'" ~/.bashrc || echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
         source ~/.bashrc
 
         grep -q '^SystemMaxUse=' /etc/systemd/journald.conf && \
