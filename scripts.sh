@@ -67,6 +67,7 @@ case $choice in
         systemctl restart systemd-journald
         sudo systemctl restart cron
         echo "输入kj重新唤醒本脚本"
+        echo "将重启机器"
 
         ;;
     2)
@@ -115,7 +116,6 @@ EOF
         echo "      - ./letsencrypt:/etc/letsencrypt" >> /root/npm/compose.yml
         cd /root/npm
         docker compose up -d
-        echo
         echo"证书和密钥路径:  /root/npm/letsencrypt/live/"
         ;;
     4)
