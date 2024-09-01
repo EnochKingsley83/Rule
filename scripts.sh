@@ -46,7 +46,6 @@ case $choice in
         apt install net-tools -y
         apt install socat -y
         apt install cron -y
-        curl https://get.acme.sh | sh
         source ~/.bashrc
         sed -i '/^alias kj='\''\/root\/scripts.sh'\''/d' ~/.bashrc && echo "alias kj='/root/scripts.sh'" >> ~/.bashrc && . ~/.bashrc
         
