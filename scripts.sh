@@ -112,6 +112,9 @@ EOF
         echo "    volumes:" >> /root/npm/compose.yml
         echo "      - ./data:/data" >> /root/npm/compose.yml
         echo "      - ./letsencrypt:/etc/letsencrypt" >> /root/npm/compose.yml
+        cd /root/npm
+        docker compose up -d
+        echo
         echo"证书和密钥路径:  /root/npm/letsencrypt/live/"
         ;;
     4)
