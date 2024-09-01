@@ -1,27 +1,16 @@
 {
     "rules": [
         {
-            "domain_keyword": [
-                "redotpay",
-                "zendesk",
-                "bybit",
-                "myfin",
-                "bycsi",
-                "bytick",
-                "byapis",
-                "bycbe",
-                "bybdc6",
-                "byd3c3",
-                "bitverse",
-                "appsflyersdk",
-                "geetest",
-                "byabcde",
-                "bitfinex",
-                "okx",
-                "oklink",
-                "okex",
-		"n26",
-		"number26"
+            "domain": [
+                "115.com",
+                "115cdn.com",
+                "115cdn.net",
+                "115img.com",
+                "116cd.cn",
+                "116cd.com",
+                "116cd.net",
+                "anxia.com",
+                "sq.cc"
             ],
             "domain_suffix": [
                 "ipwho.is",
