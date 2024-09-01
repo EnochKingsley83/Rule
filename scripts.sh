@@ -22,6 +22,7 @@ echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
 echo "18. 更新本脚本"
 echo "19. 可视化更改时区"
 echo "20. V2Ray一键安装脚本"
+echo "21. sublinkx一键安装脚本"
 echo "0. 返回"
 
 
@@ -297,6 +298,9 @@ EOF
         ;;
     20)
         bash <(wget -qO- -o- https://git.io/v2ray.sh)
+        ;;
+    21)
+        curl -s https://raw.githubusercontent.com/gooaclok819/sublinkX/main/install.sh | sudo bash
         ;;
     0)
         # 返回
