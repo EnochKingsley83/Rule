@@ -46,7 +46,10 @@ case $choice in
         apt install net-tools -y
         apt install socat -y
         apt install cron -y
-        
+
+        echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
+        source ~/.bashrc
+
         grep -q '^SystemMaxUse=' /etc/systemd/journald.conf && \
         sed -i 's/^SystemMaxUse=.*/SystemMaxUse=300M/' /etc/systemd/journald.conf || \
         echo 'SystemMaxUse=300M' >> /etc/systemd/journald.conf
