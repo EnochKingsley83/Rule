@@ -80,6 +80,21 @@ case $choice in
         echo "Docker-compose版本"
         docker-compose --version
         echo -e "\n"
+
+cat > /etc/docker/daemon.json <<EOF
+{
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "20m",
+        "max-file": "3"
+    },
+    "ipv6": true,
+    "fixed-cidr-v6": "fd00:dead:beef:c0::/80",
+    "experimental":true,
+    "ip6tables":true
+}
+EOF
+
         ;;
     3)
         # 安装npm
