@@ -4,7 +4,7 @@
 
 echo "1. 开启BBR并安装必要依赖"
 echo "2. 安装Docker"
-echo "3. 安装npm面板"
+echo "3. 安装aapanel"
 echo "4. 其他拥塞控制算法"
 echo "5. 哪吒面板"
 echo "6. s-ui面板"
@@ -99,24 +99,11 @@ EOF
 
         ;;
     3)
-        # 安装npm
-        mkdir -p /root/npm
-        touch /root/npm/compose.yml
-        echo "version: '3'" >> /root/npm/compose.yml
-        echo "services:" >> /root/npm/compose.yml
-        echo "  app:" >> /root/npm/compose.yml
-        echo "    image: 'jc21/nginx-proxy-manager:latest'" >> /root/npm/compose.yml
-        echo "    restart: unless-stopped" >> /root/npm/compose.yml
-        echo "    ports:" >> /root/npm/compose.yml
-        echo "      - '80:80'" >> /root/npm/compose.yml
-        echo "      - '5881:81'" >> /root/npm/compose.yml
-        echo "      - '443:443'" >> /root/npm/compose.yml
-        echo "    volumes:" >> /root/npm/compose.yml
-        echo "      - ./data:/data" >> /root/npm/compose.yml
-        echo "      - ./letsencrypt:/etc/letsencrypt" >> /root/npm/compose.yml
-        cd /root/npm
-        docker compose up -d
-        echo "证书和密钥路径:  /root/npm/letsencrypt/live/"
+        # 安装aapanel
+        URL=https://www.aapanel.com/script/install_7.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_7.0_en.sh "$URL";fi;bash install_7.0_en.sh aapanel
+        systemctl stop ufw
+        apt-get remove --purge ufw
+        rm -rf /etc/ufw
         ;;
     4)
         # 查看可用的拥塞控制算法
