@@ -47,28 +47,10 @@ case $choice in
         apt install net-tools -y
         apt install socat -y
         apt install cron -y
-
         grep -qxF "alias kj='/root/scripts.sh'" ~/.bashrc || echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
-        source ~/.bashrc
-
-        grep -q '^SystemMaxUse=' /etc/systemd/journald.conf && \
-        sed -i 's/^SystemMaxUse=.*/SystemMaxUse=300M/' /etc/systemd/journald.conf || \
-        echo 'SystemMaxUse=300M' >> /etc/systemd/journald.conf
-
-        grep -q '^SystemMaxFileSize=' /etc/systemd/journald.conf && \
-        sed -i 's/^SystemMaxFileSize=.*/SystemMaxFileSize=10M/' /etc/systemd/journald.conf || \
-        echo 'SystemMaxFileSize=10M' >> /etc/systemd/journald.conf
-
-        grep -q '^SystemKeepFiles=' /etc/systemd/journald.conf && \
-        sed -i 's/^SystemKeepFiles=.*/SystemKeepFiles=3/' /etc/systemd/journald.conf || \
-        echo 'SystemKeepFiles=3' >> /etc/systemd/journald.conf
-
-        journalctl --vacuum-time=1week
-        systemctl restart systemd-journald
-        sudo systemctl restart cron
         echo "输入kj重新唤醒本脚本"
         echo "将重启机器"
-
+        reboot
         ;;
     2)
         # 安装Docker
