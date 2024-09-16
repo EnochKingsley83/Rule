@@ -22,7 +22,7 @@ echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
 echo "18. 更新本脚本"
 echo "19. 可视化更改时区"
 echo "20. V2Ray一键安装脚本"
-echo "21. sublinkx一键安装脚本"
+echo "21. 生成本地订阅链接"
 echo "0. 返回"
 
 
@@ -272,7 +272,24 @@ EOF
         bash <(wget -qO- -o- https://git.io/v2ray.sh)
         ;;
     21)
-        curl -s https://raw.githubusercontent.com/gooaclok819/sublinkX/main/install.sh | sudo bash
+        apt update -y
+        apt install python3
+        touch /etc/systemd/system/http-server.service
+        echo "[Unit]" >> /etc/systemd/system/http-server.service
+        echo "Description=Simple Python HTTP Server" >> /etc/systemd/system/http-server.service
+        echo "After=network.target" >> /etc/systemd/system/http-server.service
+        echo "[Service]" >> /etc/systemd/system/http-server.service
+        echo "ExecStart=/usr/bin/python3 -m http.server 5400" >> /etc/systemd/system/http-server.service
+        echo "WorkingDirectory=/root" >> /etc/systemd/system/http-server.service
+        echo "StandardOutput=inherit" >> /etc/systemd/system/http-server.service
+        echo "StandardError=inherit" >> /etc/systemd/system/http-server.service
+        echo "Restart=always" >> /etc/systemd/system/http-server.service
+        echo "User=root" >> /etc/systemd/system/http-server.service
+        echo "[Install]" >> /etc/systemd/system/http-server.service
+        echo "WantedBy=multi-user.target" >> /etc/systemd/system/http-server.service
+        sudo systemctl daemon-reload
+        sudo systemctl enable http-server.service
+        sudo systemctl start http-server.service
         ;;
     0)
         # 返回
