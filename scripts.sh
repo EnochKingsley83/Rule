@@ -199,8 +199,8 @@ EOF
         echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
         apt update
         apt install cloudflare-warp -y
-        warp-cli register
-        warp-cli set-mode proxy
+        warp-cli registration new
+        warp-cli mode proxy
         warp-cli connect
         sudo systemctl restart warp-svc
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
