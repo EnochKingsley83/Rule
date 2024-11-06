@@ -4,7 +4,7 @@
 
 echo "1. 开启BBR并安装必要依赖"
 echo "2. 安装Docker"
-echo "3. 安装aapanel"
+echo "3. 安装1panel"
 echo "4. 其他拥塞控制算法"
 echo "5. 哪吒面板"
 echo "6. s-ui面板"
@@ -16,7 +16,7 @@ echo "11. 三网测速"
 echo "12. 修改命令提示符"
 echo "13. 修改SSH配置并更改密码"
 echo "14. 安装并连接Cloudflare WARP到40000端口"
-echo "15. 安装traffmonetizer"
+echo "15. 三网回程路由查看"
 echo "16. 通过DNS-01 验证给域名申请ACME证书"
 echo "17. 查看域名证书到期时间并手动选择是否强制更新证书"
 echo "18. 更新本脚本"
@@ -84,11 +84,11 @@ EOF
 
         ;;
     3)
-        # 安装aapanel
-        URL=https://www.aapanel.com/script/install_7.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_7.0_en.sh "$URL";fi;bash install_7.0_en.sh aapanel
-        systemctl stop ufw
-        apt-get remove --purge ufw -y
-        rm -rf /etc/ufw
+        # 安装1panel
+        curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh && bash quick_start.sh
+       # systemctl stop ufw
+       # apt-get remove --purge ufw -y
+       # rm -rf /etc/ufw
         ;;
     4)
         # 查看可用的拥塞控制算法
@@ -206,27 +206,22 @@ EOF
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
         ;;
     15)
-        echo "安装必要依赖..."
-        apt update -y
-        apt install sudo vim -y
-        apt install vnstat -y
-        apt install curl -y
-        apt install bsdmainutils -y
-        apt install unzip -y
-        apt install net-tools -y
-        apt install socat -y
-        # 安装Docker
-        echo "安装Docker..."
-        wget -qO- get.docker.com | bash
-        systemctl enable docker
-        curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
-        chmod +x /usr/local/bin/docker-compose
-        echo "Docker版本"
-        docker -v
-        echo "Docker-compose版本"
-        docker-compose --version
-        echo -e "\n"
-        docker run -i --name tm --restart=always traffmonetizer/cli_v2 start accept --token Jq4D2YD05tkorrjfCIgn7NNsUwjMuoiykjJBQ7EbMKY=
+        curl nxtrace.org/nt | bash
+        echo "输入nexttrace + ip进行回程测试"
+        clear
+        echo "上海电信回程如下"
+        echo
+        nexttrace sh-ct-v4.ip.zstaticcdn.com
+        echo
+        echo "上海移动回程如下"
+        echo
+        nexttrace sh-cm-v4.ip.zstaticcdn.com
+        echo
+        echo "上海联通回程如下"
+        echo
+        nexttrace sh-cu-v4.ip.zstaticcdn.com
+        echo
+        
         ;;
     16)
         curl -L https://raw.githubusercontent.com/EnochKingsley83/Rule/main/registercert.sh -o registercert.sh && chmod +x registercert.sh && sudo ./registercert.sh
