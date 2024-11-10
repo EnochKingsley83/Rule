@@ -23,7 +23,7 @@ echo "18. 更新本脚本"
 echo "19. 可视化更改时区"
 echo "20. V2Ray一键安装脚本"
 echo "21. 生成本地订阅链接"
-echo "22. 限制日志无限占用系统硬盘"
+echo "22. 限制日志无限占用系统硬盘+配置每天早上六点重启系统（防止内存溢出）"
 echo "0. 返回"
 
 
@@ -48,6 +48,7 @@ case $choice in
         apt install net-tools -y
         apt install socat -y
         apt install cron -y
+        sudo timedatectl set-timezone Asia/Singapore  #设置系统时间为东八区
         grep -qxF "alias kj='/root/scripts.sh'" ~/.bashrc || echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
         echo "输入kj重新唤醒本脚本"
         echo "将重启机器"
