@@ -48,9 +48,6 @@ case $choice in
         apt install net-tools -y
         apt install socat -y
         apt install cron -y
-        apt install iptables -y
-        apt install iptables-persistent -y
-        iptables-save > /etc/iptables/rules.v4
         grep -qxF "alias kj='/root/scripts.sh'" ~/.bashrc || echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
         echo "输入kj重新唤醒本脚本"
         echo "将重启机器"
@@ -288,11 +285,13 @@ EOF
         sudo systemctl start http-server.service
         ;;
     22)
-        echo "WorkingDirectory=/root" >> /etc/systemd/journald.conf
         echo "SystemMaxUse=5M" >> /etc/systemd/journald.conf
         echo "SystemMaxFileSize=2M" >> /etc/systemd/journald.conf
         echo "SystemKeepFiles=1" >> /etc/systemd/journald.conf
         systemctl restart systemd-journald
+        (crontab -l 2>/dev/null; echo "0 6 * * * /sbin/shutdown -r now") | crontab -
+        systemctl restart cron
+
         ;;
     0)
         # 返回
