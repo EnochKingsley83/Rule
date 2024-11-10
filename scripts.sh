@@ -23,6 +23,7 @@ echo "18. 更新本脚本"
 echo "19. 可视化更改时区"
 echo "20. V2Ray一键安装脚本"
 echo "21. 生成本地订阅链接"
+echo "22. 限制日志无限占用系统硬盘"
 echo "0. 返回"
 
 
@@ -285,6 +286,13 @@ EOF
         sudo systemctl daemon-reload
         sudo systemctl enable http-server.service
         sudo systemctl start http-server.service
+        ;;
+    22)
+        echo "WorkingDirectory=/root" >> /etc/systemd/journald.conf
+        echo "SystemMaxUse=5M" >> /etc/systemd/journald.conf
+        echo "SystemMaxFileSize=2M" >> /etc/systemd/journald.conf
+        echo "SystemKeepFiles=1" >> /etc/systemd/journald.conf
+        systemctl restart systemd-journald
         ;;
     0)
         # 返回
