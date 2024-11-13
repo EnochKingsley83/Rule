@@ -49,8 +49,12 @@ case $choice in
         apt install socat -y
         apt install cron -y
         sudo timedatectl set-timezone Asia/Singapore  #设置系统时间为东八区
+        sudo sed -i 's/^#Port 22$/Port 6902/' /etc/ssh/sshd_config #修改SSH端口为6902
+
         grep -qxF "alias kj='/root/scripts.sh'" ~/.bashrc || echo "alias kj='/root/scripts.sh'" >> ~/.bashrc
         echo "输入kj重新唤醒本脚本"
+        echo
+        echo "已经修改SSH端口为6902"
         echo "将重启机器"
         reboot
         ;;
@@ -203,6 +207,7 @@ EOF
         warp-cli connect
         sudo systemctl restart warp-svc
         curl ifconfig.me --proxy socks5://127.0.0.1:40000
+        reboot
         ;;
     15)
         curl nxtrace.org/nt | bash
