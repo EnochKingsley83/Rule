@@ -7,7 +7,6 @@ payload:
   - DOMAIN-KEYWORD,testflight
   - DOMAIN-SUFFIX,apzones.com
   - DOMAIN-SUFFIX,me.com
-  - DOMAIN,cloudreve.wampee.de
   
 #抖音
   - DOMAIN-KEYWORD,douyin
