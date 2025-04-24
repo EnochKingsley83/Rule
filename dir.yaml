@@ -19,4 +19,8 @@ payload:
   - DOMAIN-SUFFIX,pstatp.com
   - DOMAIN-SUFFIX,snssdk.com
   - DOMAIN-SUFFIX,toutiao.com
+#学术期刊
+  - DOMAIN-SUFFIX,aiaa.org
+  - DOMAIN-SUFFIX,webofscience.com
+  - DOMAIN-SUFFIX,cnki.net
 
