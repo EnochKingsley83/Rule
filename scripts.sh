@@ -23,7 +23,7 @@ echo "18. 更新本脚本"
 echo "19. 可视化更改时区"
 echo "20. V2Ray一键安装脚本"
 echo "21. 生成本地订阅链接"
-echo "22. 限制日志无限占用系统硬盘+配置每天早上六点重启系统（防止内存溢出）"
+echo "22. 限制日志无限占用系统硬盘+配置每周一早上5点重启系统（防止内存溢出）"
 echo "0. 返回"
 
 
@@ -295,7 +295,7 @@ EOF
         echo "SystemMaxFileSize=2M" >> /etc/systemd/journald.conf
         echo "SystemKeepFiles=1" >> /etc/systemd/journald.conf
         systemctl restart systemd-journald
-        (crontab -l 2>/dev/null; echo "0 6 * * * /sbin/shutdown -r now") | crontab -
+        (crontab -l 2>/dev/null; echo "0 5 * * 1 /sbin/shutdown -r now") | crontab -
         systemctl restart cron
 
         ;;
