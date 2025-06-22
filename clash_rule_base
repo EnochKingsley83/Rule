@@ -1,0 +1,31 @@
+allow-lan: true
+port: 7890
+mode: rule
+unified-delay: true
+ipv6: false
+dns:
+    enable: true
+    ipv6: false
+    default-nameserver:
+      - 223.5.5.5
+      - 119.29.29.29
+    nameserver-policy:
+      "geosite:private,cn":
+        - https://1.12.12.12/dns-query
+        - https://120.53.53.53/dns-query
+        - https://223.5.5.5/dns-query
+        - https://doh.pub/dns-query
+        - https://dns.alidns.com/dns-query
+      "rule-set:steamcn,games,dir":
+        - https://1.12.12.12/dns-query
+        - https://120.53.53.53/dns-query
+        - https://223.5.5.5/dns-query
+        - https://doh.pub/dns-query
+        - https://dns.alidns.com/dns-query
+    nameserver:
+      - https://1.1.1.1/dns-query
+      - https://cloudflare-dns.com/dns-query
+      - https://8.8.8.8/dns-query
+      - https://dns.google/dns-query
+      - one.one.one.one
+      - dns.google
