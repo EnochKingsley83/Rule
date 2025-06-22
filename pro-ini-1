@@ -47,7 +47,14 @@ DOMAIN-KEYWORD,github
 
 
 #googleseries
-DOMAIN-KEYWORD,google
+DOMAIN-KEYWORD,goog
+DOMAIN-KEYWORD,adsense
+DOMAIN-KEYWORD,gmail
+DOMAIN-KEYWORD,blogspot
+DOMAIN-KEYWORD,chrome
+DOMAIN-KEYWORD,bumptop
+
+
 # Youtube
 DOMAIN-KEYWORD,youtube
 DOMAIN-KEYWORD,ggpht
