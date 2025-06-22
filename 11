@@ -1,6 +1,8 @@
 [custom]
 exclude_remarks=(Data Left|Traffic:|Expir[ey]|剩[余餘]流量|[到过過效]期|[时時][间間]|分割线|官网|订阅|重置|更新|剩余|电报|流量|到期)
-
+udp_flag=true
+tcp_fast_open_flag=true
+sort_flag=true
 add_emoji=true
 remove_old_emoji=false
 emoji=^(?!.*(?!🇨🇳)[🇦-🇿]{2}).*(澳[门門]),🇲🇴
@@ -218,21 +220,12 @@ emoji=^(?!.*(?!🇨🇳)[🇦-🇿]{2}).*(?i:(?<![\da-z.])CH?N(?!\d*[a-z])|China
 enable_rule_generator=true
 overwrite_original_rules=true
 ;规则
-ruleset=PROXY,https://raw.githubusercontent.com/EnochKingsley83/Rule/main/wifi-calling.yaml
-ruleset=PROXY,https://raw.githubusercontent.com/EnochKingsley83/Rule/refs/heads/main/pro.yaml
-ruleset=PROXY,https://raw.githubusercontent.com/EnochKingsley83/Rule/main/googleseries
-ruleset=PROXY,https://raw.githubusercontent.com/EnochKingsley83/Rule/main/ai.yaml
-ruleset=DIR,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml
-ruleset=DIR,https://raw.githubusercontent.com/EnochKingsley83/Rule/main/games.yaml
-ruleset=PROXY,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
-ruleset=DIR,https://raw.githubusercontent.com/EnochKingsley83/Rule/main/dir.yaml
-ruleset=PROXY,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
-
-
-
-ruleset=DIR,[]GEOSITE,LAN
-ruleset=DIR,[]GEOIP,LAN
+ruleset=PROXY,https://raw.githubusercontent.com/EnochKingsley83/Rule/refs/heads/main/dir-ini-1
+ruleset=DIR,https://raw.githubusercontent.com/EnochKingsley83/Rule/refs/heads/main/dir-ini-1
+ruleset=PROXY,https://raw.githubusercontent.com/EnochKingsley83/Rule/refs/heads/main/pro-ini-2
+ruleset=DIR,[]GEOSITE,CN
 ruleset=DIR,[]GEOIP,CN
+ruleset=DIR,[]GEOIP,LAN
 ruleset=Match,[]FINAL
 
 ;策略组
@@ -241,4 +234,4 @@ custom_proxy_group=DIR`select`[]DIRECT
 custom_proxy_group=Match`select`[]PROXY
 
 
-surge_rule_base=https://gist.githubusercontent.com/tindy2013/1fa08640a9088ac8652dbd40c5d2715b/raw/lhie1_surge.conf
+clash_rule_base=https://raw.githubusercontent.com/EnochKingsley83/Rule/refs/heads/main/clash_rule_base
