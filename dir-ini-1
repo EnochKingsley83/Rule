@@ -106,5 +106,31 @@ DOMAIN,uplaypc-s-ubisoft.cdn.ubionline.com.cn
 DOMAIN,xz.pphimalayanrt.com
 DOMAIN-SUFFIX,pdl.wow.battlenet.com.cn
 
+#apple
+DOMAIN-KEYWORD,apple
+DOMAIN-KEYWORD,icloud
+DOMAIN-KEYWORD,testflight
+DOMAIN-KEYWORD,itunes
+DOMAIN-KEYWORD,smp-device
+DOMAIN-KEYWORD,testflight
+DOMAIN-SUFFIX,apzones.com
+DOMAIN-SUFFIX,me.com
+  
+#抖音
+DOMAIN-KEYWORD,douyin
+DOMAIN,lf3-static.bytednsdoc.com
+DOMAIN,v5-dy-o-abtest.zjcdn.com
+DOMAIN-SUFFIX,amemv.com
+DOMAIN-SUFFIX,idouyinvod.com
+DOMAIN-SUFFIX,ixigua.com
+DOMAIN-SUFFIX,ixiguavideo.com
+DOMAIN-SUFFIX,pstatp.com
+DOMAIN-SUFFIX,snssdk.com
+DOMAIN-SUFFIX,toutiao.com
+#学术期刊
+DOMAIN-SUFFIX,aiaa.org
+DOMAIN-SUFFIX,webofscience.com
+DOMAIN-SUFFIX,cnki.net
+DOMAIN-SUFFIX,acs.org
 
 
