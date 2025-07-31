@@ -43,6 +43,7 @@ case $choice in
         apt install sudo vim -y
         apt install vnstat -y
         apt install curl -y
+        apt install jq -y
         apt install bsdmainutils -y
         apt install unzip -y
         apt install net-tools -y
@@ -106,7 +107,7 @@ EOF
     6)
         # x-ui面板
         echo "s-ui面板..."
-        VERSION=1.0.0 && bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/$VERSION/install.sh) $VERSION
+        VERSION=1.3.0-rc.1 && bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/$VERSION/install.sh) $VERSION
         ;;
     7)
         # 流媒体检测
