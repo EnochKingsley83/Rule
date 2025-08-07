@@ -105,9 +105,9 @@ EOF
         curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/v0/install.sh -o nezha.sh && chmod +x nezha.sh && sudo ./nezha.sh
         ;;
     6)
-        # x-ui面板
+        # s-ui面板
         echo "s-ui面板..."
-        VERSION=1.3.0-rc.1 && bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/$VERSION/install.sh) $VERSION
+        VERSION=1.0.0 && bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/$VERSION/install.sh) $VERSION
         ;;
     7)
         # 流媒体检测
