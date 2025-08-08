@@ -107,7 +107,7 @@ EOF
     6)
         # s-ui面板
         echo "s-ui面板..."
-        VERSION=1.0.0 && bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/$VERSION/install.sh) $VERSION
+        VERSION=1.3.2 && bash <(curl -Ls https://raw.githubusercontent.com/alireza0/s-ui/$VERSION/install.sh) $VERSION
         ;;
     7)
         # 流媒体检测
