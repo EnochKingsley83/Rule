@@ -1,4 +1,5 @@
 payload:
+  - DOMAIN-KEYWORD,yridc
 # Epic
   - DOMAIN-SUFFIX,battlebreakers.com
   - DOMAIN-SUFFIX,eac-cdn.com
