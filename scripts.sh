@@ -6,7 +6,7 @@ echo "1. 开启BBR并安装必要依赖"
 echo "2. 安装Docker"
 echo "3. 安装1panel"
 echo "4. 其他拥塞控制算法"
-echo "5. 哪吒面板"
+echo "5. 探针面板"
 echo "6. s-ui面板"
 echo "7. 流媒体检测"
 echo "8. Swap"
@@ -24,6 +24,7 @@ echo "19. 可视化更改时区"
 echo "20. V2Ray一键安装脚本"
 echo "21. 生成本地订阅链接"
 echo "22. 限制日志无限占用系统硬盘+配置每周一早上5点重启系统（防止内存溢出）"
+echo "23. reality一键脚本"
 echo "0. 返回"
 
 
@@ -102,7 +103,9 @@ EOF
     5)
         # 哪吒面板
         echo "哪吒面板安装中..."
-        curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/v0/install.sh -o nezha.sh && chmod +x nezha.sh && sudo ./nezha.sh
+        curl -fsSL https://raw.githubusercontent.com/komari-monitor/komari/main/install-komari.sh -o install-komari.sh
+        chmod +x install-komari.sh
+        sudo ./install-komari.sh
         ;;
     6)
         # s-ui面板
@@ -298,7 +301,12 @@ EOF
         systemctl restart systemd-journald
         (crontab -l 2>/dev/null; echo "0 5 * * 1 /sbin/shutdown -r now") | crontab -
         systemctl restart cron
-
+        ;;
+    23)
+        echo "香港：www.uowchk.edu.hk"
+        echo "新加坡：nus.edu.sg"
+        cho "日本：www.uec.ac.jp"
+        wget https://raw.githubusercontent.com/yeahwu/v2ray-wss/main/reality.sh && bash reality.sh
         ;;
     0)
         # 返回
