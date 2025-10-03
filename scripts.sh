@@ -25,6 +25,7 @@ echo "20. V2Ray一键安装脚本"
 echo "21. 生成本地订阅链接"
 echo "22. 限制日志无限占用系统硬盘+配置每周一早上5点重启系统（防止内存溢出）"
 echo "23. reality一键脚本"
+echo "24. dd debian 12一键脚本"
 echo "0. 返回"
 
 
@@ -307,6 +308,11 @@ EOF
         echo "新加坡：nus.edu.sg"
         cho "日本：www.uec.ac.jp"
         wget https://raw.githubusercontent.com/yeahwu/v2ray-wss/main/reality.sh && bash reality.sh
+        ;;
+    24)
+        curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O ${_##*/} $_
+        sudo chmod +x ./reinstall.sh
+        sudo ./reinstall.sh debian 12
         ;;
     0)
         # 返回
