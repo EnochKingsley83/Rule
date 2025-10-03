@@ -313,6 +313,7 @@ EOF
         curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O ${_##*/} $_
         sudo chmod +x ./reinstall.sh
         sudo ./reinstall.sh debian 12
+        reboot
         ;;
     0)
         # 返回
