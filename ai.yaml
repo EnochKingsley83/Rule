@@ -1,6 +1,6 @@
 payload:
 # 香港服务器
-  - IP-CIDR,154.19.43.108
+  - IP-CIDR,154.19.43.108/32
 # Openai
   - DOMAIN,browser-intake-datadoghq.com
   - DOMAIN,chat.openai.com.cdn.cloudflare.net
