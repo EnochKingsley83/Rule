@@ -45,3 +45,6 @@ payload:
   - DOMAIN-SUFFIX,store.steampowered.com
   - DOMAIN-SUFFIX,steamcommunity.com
   - DOMAIN-KEYWORD,github
+
+  # 华为云
+  - DOMAIN-SUFFIX,huaweicloud.com
