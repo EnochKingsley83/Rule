@@ -47,4 +47,4 @@ payload:
   - DOMAIN-KEYWORD,github
 
   # 华为云
-  - DOMAIN-SUFFIX,huaweicloud.com
+  - DOMAIN-KEYWORD,huaweicloud.com
